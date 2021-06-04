@@ -59,3 +59,15 @@
 테스트로 개발을 시작(Test First Development) / 
 - TO DO 정리 필요
 https://medium.com/@jang.wangsu/tdd-tdd%EC%9D%98-%EC%9E%A5%EB%8B%A8%EC%A0%90%EC%97%90-%EB%8C%80%ED%95%B4-%EC%83%9D%EA%B0%81%ED%95%B4%EB%B3%B4%EA%B8%B0-dcf32a72b098
+
+
+
+>20210604
+개발 scope : 범위를 나타나며 scope 안에 선언된 변수는 scope가 끝날때 메모리 해제가 된다.  해당 scope 선언된 객체가 stack 영역에 쌓이고 scope 종료시 stack 영역에서 해제 된다. 하지만 scope 영역에 선언된 static 객체는 stack영역이 아닌 Heap 영역으로 들어가기 때문에 메모리 해제가 안된다.
+디자인 패턴 : gof 23 가지 패턴 , 아키텍처 패턴 : mvc, mvp , mvvm 등의 설계 패턴
+Higher Order Function 고차함수 : 함수안에 함수를 객체 처럼 사용하고 함수를 결과 값으로 받는다. 
+swift의 map,filter, reduce
+데이터흐름 방식 = 데이터 전달 방식
+Broadcast = Notification = (observer)? : n개의 객체를 Broadcast 등록했을 때 일괄적으로 전달하여 변경처리 하는 방식
+화면 간의 데이터전달 : intent = seque? 화면 전환 될때 객체를 통하여 데이터 전달 하는 방식
+delegate : 프로토콜이란 인터페이스를 통하여 데이터를 위임하여 데이터 전달하는 방식
