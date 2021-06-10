@@ -15,6 +15,7 @@
 		C90F8E4A26661C04003B09A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90F8E4826661C04003B09A7 /* LaunchScreen.storyboard */; };
 		C90F8E5526661C05003B09A7 /* firstAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F8E5426661C05003B09A7 /* firstAppTests.swift */; };
 		C90F8E6026661C05003B09A7 /* firstAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F8E5F26661C05003B09A7 /* firstAppUITests.swift */; };
+		C94DB6762671A15600D0E4D9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94DB6752671A15600D0E4D9 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C90F8E6126661C05003B09A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C929908626677C83003F847C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C929908926677D32003F847C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C94DB6752671A15600D0E4D9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		C90F8E3C26661C00003B09A7 /* firstApp */ = {
 			isa = PBXGroup;
 			children = (
+				C94DB6742671A11600D0E4D9 /* Main */,
 				C9299083266773B1003F847C /* Document */,
 				C90F8E3D26661C01003B09A7 /* AppDelegate.swift */,
 				C90F8E3F26661C01003B09A7 /* SceneDelegate.swift */,
@@ -146,6 +149,14 @@
 				C929908926677D32003F847C /* README.md */,
 			);
 			path = docs;
+			sourceTree = "<group>";
+		};
+		C94DB6742671A11600D0E4D9 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C94DB6752671A15600D0E4D9 /* MainViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +292,7 @@
 				C90F8E4226661C01003B09A7 /* ViewController.swift in Sources */,
 				C90F8E3E26661C01003B09A7 /* AppDelegate.swift in Sources */,
 				C90F8E4026661C01003B09A7 /* SceneDelegate.swift in Sources */,
+				C94DB6762671A15600D0E4D9 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
