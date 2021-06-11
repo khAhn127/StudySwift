@@ -18,6 +18,10 @@
 		C90F8E5526661C05003B09A7 /* firstAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F8E5426661C05003B09A7 /* firstAppTests.swift */; };
 		C90F8E6026661C05003B09A7 /* firstAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F8E5F26661C05003B09A7 /* firstAppUITests.swift */; };
 		C94DB6762671A15600D0E4D9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94DB6752671A15600D0E4D9 /* MainViewController.swift */; };
+		C9EF536D26733D8B00CD7A88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF536C26733D8B00CD7A88 /* ViewController.swift */; };
+		C9EF536F26733FB600CD7A88 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF536E26733FB600CD7A88 /* IntroViewController.swift */; };
+		C9EF53712673408200CD7A88 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF53702673408200CD7A88 /* SetupViewController.swift */; };
+		C9EF537626735D4C00CD7A88 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF537526735D4C00CD7A88 /* NavigationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,11 @@
 		C929908626677C83003F847C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C929908926677D32003F847C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C94DB6752671A15600D0E4D9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C9EF536A2673390300CD7A88 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C9EF536C26733D8B00CD7A88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C9EF536E26733FB600CD7A88 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		C9EF53702673408200CD7A88 /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		C9EF537526735D4C00CD7A88 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		D3E1331DB2A8EA5339B4AE1D /* Pods-firstApp-firstAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firstApp-firstAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-firstApp-firstAppUITests/Pods-firstApp-firstAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF1742D407E39D306D32AFAD /* Pods_firstApp_firstAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firstApp_firstAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFE02B0B1DDA39E4279C39E9 /* Pods-firstApp-firstAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firstApp-firstAppUITests.release.xcconfig"; path = "Target Support Files/Pods-firstApp-firstAppUITests/Pods-firstApp-firstAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +150,7 @@
 		C90F8E3C26661C00003B09A7 /* firstApp */ = {
 			isa = PBXGroup;
 			children = (
+				C9EF53682673207100CD7A88 /* Common */,
 				C9299083266773B1003F847C /* Document */,
 				C94DB6742671A11600D0E4D9 /* Main */,
 				C90F8E3D26661C01003B09A7 /* AppDelegate.swift */,
@@ -174,26 +184,62 @@
 		C9299083266773B1003F847C /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				C929908826677D1C003F847C /* docs */,
+				C9EF5369267338D600CD7A88 /* StudyDocs */,
+				C929908826677D1C003F847C /* DailyDocs */,
 				C929908626677C83003F847C /* README.md */,
 			);
 			path = Document;
 			sourceTree = "<group>";
 		};
-		C929908826677D1C003F847C /* docs */ = {
+		C929908826677D1C003F847C /* DailyDocs */ = {
 			isa = PBXGroup;
 			children = (
 				C929908926677D32003F847C /* README.md */,
 			);
-			path = docs;
+			path = DailyDocs;
 			sourceTree = "<group>";
 		};
 		C94DB6742671A11600D0E4D9 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C9EF5372267340CA00CD7A88 /* SetupView */,
+				C9EF536E26733FB600CD7A88 /* IntroViewController.swift */,
+				C9EF53702673408200CD7A88 /* SetupViewController.swift */,
 				C94DB6752671A15600D0E4D9 /* MainViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		C9EF53682673207100CD7A88 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C9EF536B26733CC700CD7A88 /* Component */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C9EF5369267338D600CD7A88 /* StudyDocs */ = {
+			isa = PBXGroup;
+			children = (
+				C9EF536A2673390300CD7A88 /* README.md */,
+			);
+			path = StudyDocs;
+			sourceTree = "<group>";
+		};
+		C9EF536B26733CC700CD7A88 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				C9EF536C26733D8B00CD7A88 /* ViewController.swift */,
+				C9EF537526735D4C00CD7A88 /* NavigationViewController.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		C9EF5372267340CA00CD7A88 /* SetupView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SetupView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,8 +480,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9EF536F26733FB600CD7A88 /* IntroViewController.swift in Sources */,
 				C90F8E3E26661C01003B09A7 /* AppDelegate.swift in Sources */,
 				C90F8E4026661C01003B09A7 /* SceneDelegate.swift in Sources */,
+				C9EF536D26733D8B00CD7A88 /* ViewController.swift in Sources */,
+				C9EF53712673408200CD7A88 /* SetupViewController.swift in Sources */,
+				C9EF537626735D4C00CD7A88 /* NavigationViewController.swift in Sources */,
 				C94DB6762671A15600D0E4D9 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
