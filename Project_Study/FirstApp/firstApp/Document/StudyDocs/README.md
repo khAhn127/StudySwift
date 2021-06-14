@@ -23,5 +23,14 @@
     - 하단 : 사다리 게임 시작 버튼, 사다리타기 결과 보기 버튼
     
     
+
+## LifeCycle
+1.  AppDelegate
+2. SeceneDelegate
+3. IntroViewController
+4. SetupVIewController
+5. MainViewController
+6. Event handling
+7. Restart-> IntroViewController
     
     
