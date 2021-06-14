@@ -202,7 +202,6 @@
 			children = (
 				C9EF5372267340CA00CD7A88 /* SetupView */,
 				C9EF536E26733FB600CD7A88 /* IntroViewController.swift */,
-				C9EF53702673408200CD7A88 /* SetupViewController.swift */,
 				C94DB6752671A15600D0E4D9 /* MainViewController.swift */,
 			);
 			path = Main;
@@ -235,6 +234,7 @@
 		C9EF5372267340CA00CD7A88 /* SetupView */ = {
 			isa = PBXGroup;
 			children = (
+				C9EF53702673408200CD7A88 /* SetupViewController.swift */,
 			);
 			name = SetupView;
 			sourceTree = "<group>";
