@@ -9,7 +9,39 @@ import UIKit
 import AsyncDisplayKit
 
 class SetupViewController: ViewController {
-    let contentsNode = ASDisplayNode()
+    lazy var headerNode : ASDisplayNode = {
+        let node = ASDisplayNode()
+        let bgNode = ASDisplayNode()
+        let titleNode = ASTextNode()
+        bgNode.backgroundColor = .init(hexString: "#e67ea3")
+        
+        titleNode.textContainerInset = .init(top: 20, left: 20, bottom: 20, right: 20)
+        titleNode.attributedText = .init(string: "게임설명")
+        
+        node.automaticallyManagesSubnodes = true
+        node.automaticallyRelayoutOnSafeAreaChanges = true
+        node.layoutSpecBlock = { [weak self] (_, _) in
+            guard let self = self else { return ASLayoutSpec() }
+            return ASBackgroundLayoutSpec(
+                child : ASCenterLayoutSpec(
+                    centeringOptions: .XY,
+                    sizingOptions: .minimumXY,
+                    child: titleNode),
+                background : bgNode.styled({
+                    $0.flexShrink = 1.0
+                    $0.flexGrow = 1.0
+                    $0.height = .init(unit: .points,value: 20)
+                })
+            )
+        }
+        return node
+    }()
+    
+    lazy var contentsNode : ASDisplayNode = {
+        let node = ASDisplayNode()
+        node.backgroundColor = UIColor.yellow
+        return node
+    }()
     
     override init(node: ASDisplayNode) {
         super.init(node: node)
@@ -19,9 +51,24 @@ class SetupViewController: ViewController {
             guard let self = self else {
                 return ASLayoutSpec()
             }
+            let separator = ASDisplayNode()
+            separator.style.height = .init(unit: .points, value: 8)
+            separator.backgroundColor = UIColor.separator
             return ASInsetLayoutSpec(
-                insets  : .zero,
-                child   : self.contentsNode
+                insets  : self.node.safeAreaInsets,
+                child   : ASStackLayoutSpec(
+                    direction: .vertical,
+                    spacing: 0,
+                    justifyContent: .spaceBetween,
+                    alignItems: .stretch,
+                    children: [
+                        self.headerNode,
+                        separator,
+                        self.contentsNode.styled({
+                            $0.flexShrink = 1.0
+                            $0.flexGrow = 1.0
+                        }),
+                    ])
             )
         }
     }
@@ -34,16 +81,5 @@ class SetupViewController: ViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
