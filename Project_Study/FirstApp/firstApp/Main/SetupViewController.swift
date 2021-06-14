@@ -9,26 +9,26 @@ import UIKit
 import AsyncDisplayKit
 
 class SetupViewController: ViewController {
+    let contentsNode = ASDisplayNode()
     
     override init(node: ASDisplayNode) {
         super.init(node: node)
+      
+        self.contentsNode.backgroundColor = UIColor.systemPink
         self.node.layoutSpecBlock = { [weak self] (_,_) in
             guard let self = self else {
                 return ASLayoutSpec()
             }
-            let node = ASDisplayNode()
-            node.bounds = .infinite
-            node.backgroundColor = UIColor.systemPink
             return ASInsetLayoutSpec(
-                insets: .zero,
-                child: node
+                insets  : .zero,
+                child   : self.contentsNode
             )
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
     }
     required init?(coder: NSCoder) {

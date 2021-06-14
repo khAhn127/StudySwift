@@ -8,7 +8,9 @@
 import Foundation
 import AsyncDisplayKit
 
-class IntroViewController: ViewController {
+class IntroViewController: UINavigationController {
+    var viewController : ViewController = ViewController()
+    
     lazy var startButton : ASButtonNode = {
         let node = ASButtonNode()
         node.backgroundColor = UIColor.systemPink
@@ -18,9 +20,23 @@ class IntroViewController: ViewController {
         return node
     }()
     
-    override init(node : ASDisplayNode) {
-        super.init(node : node)
-        self.node.layoutSpecBlock = { [weak self] (_,_)  in
+    required init(coder aDecoder: NSCoder) {
+        fatalError("NSCoding not supported")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.pushViewController(self.viewController, animated: true)
+        self.navigationController?.navigationBar.isHidden = true
+        // Do any additional setup after loading the view.
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.viewController.view.backgroundColor = UIColor.white
+        self.isToolbarHidden = true
+        
+        self.viewController.node.layoutSpecBlock = { [weak self] (_,_)  in
             guard let self = self else { return ASLayoutSpec() }
             
             return ASStackLayoutSpec(
@@ -38,21 +54,13 @@ class IntroViewController: ViewController {
             )
         }
     }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+
 }
 
 extension IntroViewController {
     @objc func goSetup() {
         DispatchQueue.main.async {
-            let view = SetupViewController()
-           
+            self.pushViewController(SetupViewController(), animated: true)
         }
     }
 }

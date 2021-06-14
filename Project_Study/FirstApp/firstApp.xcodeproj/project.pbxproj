@@ -21,7 +21,6 @@
 		C9EF536D26733D8B00CD7A88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF536C26733D8B00CD7A88 /* ViewController.swift */; };
 		C9EF536F26733FB600CD7A88 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF536E26733FB600CD7A88 /* IntroViewController.swift */; };
 		C9EF53712673408200CD7A88 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF53702673408200CD7A88 /* SetupViewController.swift */; };
-		C9EF537626735D4C00CD7A88 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF537526735D4C00CD7A88 /* NavigationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +67,6 @@
 		C9EF536C26733D8B00CD7A88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C9EF536E26733FB600CD7A88 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		C9EF53702673408200CD7A88 /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
-		C9EF537526735D4C00CD7A88 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		D3E1331DB2A8EA5339B4AE1D /* Pods-firstApp-firstAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firstApp-firstAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-firstApp-firstAppUITests/Pods-firstApp-firstAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF1742D407E39D306D32AFAD /* Pods_firstApp_firstAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firstApp_firstAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFE02B0B1DDA39E4279C39E9 /* Pods-firstApp-firstAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firstApp-firstAppUITests.release.xcconfig"; path = "Target Support Files/Pods-firstApp-firstAppUITests/Pods-firstApp-firstAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				C9EF536C26733D8B00CD7A88 /* ViewController.swift */,
-				C9EF537526735D4C00CD7A88 /* NavigationViewController.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -485,7 +482,6 @@
 				C90F8E4026661C01003B09A7 /* SceneDelegate.swift in Sources */,
 				C9EF536D26733D8B00CD7A88 /* ViewController.swift in Sources */,
 				C9EF53712673408200CD7A88 /* SetupViewController.swift in Sources */,
-				C9EF537626735D4C00CD7A88 /* NavigationViewController.swift in Sources */,
 				C94DB6762671A15600D0E4D9 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
