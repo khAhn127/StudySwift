@@ -51,15 +51,16 @@ class SetupViewController: ViewController {
                          .paragraphStyle : paragraphStyle,
             ])
         node.borderColor = UIColor.black.cgColor
-        node.borderWidth = 1
+        node.borderWidth = 0.5
         return node
     }()
     
-    lazy var inputNode : ASTextNode = {
-        let node = ASTextNode()
+    lazy var inputNode : ASEditableTextNode = {
+        let node = ASEditableTextNode()
         node.backgroundColor = UIColor.white
         node.borderColor = UIColor.black.cgColor
-        node.borderWidth = 1
+        node.borderWidth = 0.5
+    
         // TODO: textNode에서 ASDisplayNode를 textField로 안에 넣고 감싸고 난 후 node 반환 처리
         return node
     }()
@@ -69,7 +70,7 @@ class SetupViewController: ViewController {
         node.backgroundColor = UIColor.yellow
         node.style.height = .init(unit: .points, value: 20)
         node.setTitle("시작", with: nil, with: .blue, for: .normal)
-       
+        node.borderWidth = 1
         return node
     }()
     
