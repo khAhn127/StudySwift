@@ -74,6 +74,12 @@ class SetupViewController: ViewController {
         return node
     }()
     
+    lazy var collectionNode : CollectionNode<PersonModel,SetupCellNode> = {
+        let node = CollectionNode<PersonModel,SetupCellNode>()
+        
+        return node
+    }()
+    
     lazy var contentsNode : ASDisplayNode = {
         let node = ASDisplayNode()
         
@@ -117,7 +123,7 @@ class SetupViewController: ViewController {
                     children: [
                         headerLayoutSpec,
                         // TODO: collectionNode 대체 자리
-                        ASDisplayNode().styled({
+                        self.collectionNode.styled({
                             $0.flexGrow = 1
                             $0.flexShrink = 1
                         }).setBackgroundColor(color: UIColor.white),
