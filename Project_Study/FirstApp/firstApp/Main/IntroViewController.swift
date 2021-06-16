@@ -34,7 +34,7 @@ class IntroViewController: UINavigationController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.viewController.view.backgroundColor = UIColor.white
-        self.isToolbarHidden = true
+        self.navigationController?.navigationBar.isHidden = true
         
         self.viewController.node.layoutSpecBlock = { [weak self] (_,_)  in
             guard let self = self else { return ASLayoutSpec() }
