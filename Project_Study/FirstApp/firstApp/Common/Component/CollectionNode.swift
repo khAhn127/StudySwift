@@ -12,7 +12,7 @@ import DifferenceKit
 public typealias RawModel = Codable 
 
 class CollectionNode<Model : RawModel, Cell: ASCellNode>: ASDisplayNode, ASCollectionDataSource, ASCollectionDelegate, ASCollectionDelegateFlowLayout, ASCollectionViewLayoutInspecting  {
-    var model : [PersonModel] = []
+    var model : [SetupModel] = []
     
     lazy var collectionNode: ASCollectionNode = {
         let layout = UICollectionViewFlowLayout()
@@ -62,10 +62,15 @@ class CollectionNode<Model : RawModel, Cell: ASCellNode>: ASDisplayNode, ASColle
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return model.count
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
-        return SetupCellNode()
+        let cellNode = SetupCellNode()
+        let model : SetupModel  = self.model[indexPath.item]
+        
+        cellNode.inputNode.attributedText = .init(string: model.name )
+        
+        return cellNode
     }
 }
