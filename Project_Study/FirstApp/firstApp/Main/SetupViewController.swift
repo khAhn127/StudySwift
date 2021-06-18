@@ -9,6 +9,17 @@ import UIKit
 import AsyncDisplayKit
 
 class SetupViewController: ViewController {
+    enum Mode {
+        case person
+        case result
+    }
+    
+    var mode = Mode.person {
+        didSet{
+            self.view.endEditing(true)
+        }
+    }
+    
     lazy var headerNode : ASDisplayNode = {
         let node = ASDisplayNode()
         let bgNode = ASDisplayNode()
@@ -169,10 +180,32 @@ class SetupViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
+        let toolBarKeyboard = UIToolbar()
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: .none, action: .none)
+        let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create))
+        toolBarKeyboard.items = [space,btnDoneBar]
+        toolBarKeyboard.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        toolBarKeyboard.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+        toolBarKeyboard.sizeToFit()
+//        (inputNode.view as? UITextView)?.keyboardType = .numberPad
+//        (inputNode.textView as? UITextView)?.inputAccessoryView = toolBarKeyboard
+    
+        inputNode.textView.inputAccessoryView = toolBarKeyboard
+        
         // Do any additional setup after loading the view.
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+
+    @objc func create() {
+        switch self.mode {
+        case .person:
+            <#code#>
+        default:
+            <#code#>
+        }
     }
 
 }
