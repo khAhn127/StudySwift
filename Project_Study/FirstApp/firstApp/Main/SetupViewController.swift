@@ -224,4 +224,14 @@ extension SetupViewController : ASEditableTextNodeDelegate
     func editableTextNodeShouldBeginEditing(_ editableTextNode: ASEditableTextNode) -> Bool {
         return true
     }
+    func editableTextNode(_ editableTextNode: ASEditableTextNode, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let nsString = editableTextNode.textView.text as NSString?
+        guard
+            let newString = nsString?.replacingCharacters(in: range, with: text),
+            newString.lengthOfBytes(using: .utf8) <= 1
+        else {
+            return false
+        }
+        return true
+    }
 }
