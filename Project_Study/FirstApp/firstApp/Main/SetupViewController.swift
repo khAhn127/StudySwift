@@ -191,6 +191,8 @@ class SetupViewController: ViewController {
         toolBarKeyboard.sizeToFit()
     
         inputNode.textView.inputAccessoryView = toolBarKeyboard
+        //comment 최대 라인 수
+        inputNode.textView.textContainer.maximumNumberOfLines = 1
         // Do any additional setup after loading the view.
     }
     required init?(coder: NSCoder) {
