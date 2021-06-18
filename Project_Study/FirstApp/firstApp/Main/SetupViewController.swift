@@ -71,8 +71,10 @@ class SetupViewController: ViewController {
         node.backgroundColor = UIColor.white
         node.borderColor = UIColor.black.cgColor
         node.borderWidth = 0.5
-    
-        // TODO: textNode에서 ASDisplayNode를 textField로 안에 넣고 감싸고 난 후 node 반환 처리
+        node.delegate = self
+        node.keyboardType = .numberPad
+
+//
         return node
     }()
     
@@ -85,8 +87,21 @@ class SetupViewController: ViewController {
         return node
     }()
     
-    lazy var collectionNode : CollectionNode<PersonModel,SetupCellNode> = {
-        let node = CollectionNode<PersonModel,SetupCellNode>()
+    lazy var collectionNode : CollectionNode<SetupModel,SetupCellNode> = {
+        let node = CollectionNode<SetupModel,SetupCellNode>()
+        
+        var dic : [Int : String] = [:]
+
+        var model : [SetupModel] = []
+        model.append(SetupModel(type: "이름", name: "사람1"))
+        model.append(SetupModel(type: "이름", name: "사람2"))
+        model.append(SetupModel(type: "이름", name: "사람3"))
+        model.append(SetupModel(type: "이름", name: "사람4"))
+        model.append(SetupModel(type: "이름", name: "사람5"))
+        model.append(SetupModel(type: "이름", name: "사람6"))
+
+        node.model = model
+        
         
         return node
     }()
@@ -180,6 +195,20 @@ class SetupViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
+//        NotificationCenter.default.addObserver(
+//              self,
+//              selector: #selector(keyboardWillShow),
+//              name: UIResponder.keyboardWillShowNotification,
+//              object: nil
+//            )
+//
+//        NotificationCenter.default.addObserver(
+//          self,
+//          selector: #selector(keyboardWillHide),
+//          name: UIResponder.keyboardWillHideNotification,
+//          object: nil
+//        )
+
         let toolBarKeyboard = UIToolbar()
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: .none, action: .none)
         let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create))
@@ -209,14 +238,9 @@ class SetupViewController: ViewController {
     }
 
 }
-extension SetupViewController : ASTextNodeDelegate
+extension SetupViewController : ASEditableTextNodeDelegate
 {
-    func textNode(_ textNode: ASTextNode!, shouldHighlightLinkAttribute attribute: String!, value: Any!, at point: CGPoint) -> Bool {
+    func editableTextNodeShouldBeginEditing(_ editableTextNode: ASEditableTextNode) -> Bool {
         return true
     }
-    
-    func textNode(_ textNode: ASTextNode!, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
-        
-    }
-    
 }
