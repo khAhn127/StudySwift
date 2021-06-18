@@ -73,8 +73,6 @@ class SetupViewController: ViewController {
         node.borderWidth = 0.5
         node.delegate = self
         node.keyboardType = .numberPad
-
-//
         return node
     }()
     
@@ -89,20 +87,6 @@ class SetupViewController: ViewController {
     
     lazy var collectionNode : CollectionNode<SetupModel,SetupCellNode> = {
         let node = CollectionNode<SetupModel,SetupCellNode>()
-        
-        var dic : [Int : String] = [:]
-
-        var model : [SetupModel] = []
-        model.append(SetupModel(type: "이름", name: "사람1"))
-        model.append(SetupModel(type: "이름", name: "사람2"))
-        model.append(SetupModel(type: "이름", name: "사람3"))
-        model.append(SetupModel(type: "이름", name: "사람4"))
-        model.append(SetupModel(type: "이름", name: "사람5"))
-        model.append(SetupModel(type: "이름", name: "사람6"))
-
-        node.model = model
-        
-        
         return node
     }()
     
@@ -195,32 +179,17 @@ class SetupViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-//        NotificationCenter.default.addObserver(
-//              self,
-//              selector: #selector(keyboardWillShow),
-//              name: UIResponder.keyboardWillShowNotification,
-//              object: nil
-//            )
-//
-//        NotificationCenter.default.addObserver(
-//          self,
-//          selector: #selector(keyboardWillHide),
-//          name: UIResponder.keyboardWillHideNotification,
-//          object: nil
-//        )
 
         let toolBarKeyboard = UIToolbar()
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: .none, action: .none)
         let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create))
         toolBarKeyboard.items = [space,btnDoneBar]
         toolBarKeyboard.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        toolBarKeyboard.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+        toolBarKeyboard.backgroundColor = .init(hexString: "#8c79b4")
+        //#colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         toolBarKeyboard.sizeToFit()
-//        (inputNode.view as? UITextView)?.keyboardType = .numberPad
-//        (inputNode.textView as? UITextView)?.inputAccessoryView = toolBarKeyboard
     
         inputNode.textView.inputAccessoryView = toolBarKeyboard
-        
         // Do any additional setup after loading the view.
     }
     required init?(coder: NSCoder) {
@@ -231,9 +200,6 @@ class SetupViewController: ViewController {
     @objc func create() {
         switch self.mode {
         case .person:
-            <#code#>
-        default:
-            <#code#>
         }
     }
 
