@@ -69,7 +69,8 @@ class CollectionNode<Model : RawModel, Cell: ASCellNode>: ASDisplayNode, ASColle
         let cellNode = SetupCellNode()
         let model : SetupModel  = self.model[indexPath.item]
         
-        cellNode.inputNode.attributedText = .init(string: model.name )
+        cellNode.titleNode.attributedText = .init(string: model.type)
+        cellNode.inputNode.attributedText = .init(string: model.name)
         
         return cellNode
     }
