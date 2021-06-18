@@ -19,13 +19,14 @@ class SetupViewController: ViewController {
             self.view.endEditing(true)
         }
     }
+    var personModel : [SetupModel] = []
+    var resultModel : [SetupModel] = []
     
     lazy var headerNode : ASDisplayNode = {
         let node = ASDisplayNode()
         let bgNode = ASDisplayNode()
         let titleNode = ASTextNode()
         bgNode.backgroundColor = .init(hexString: "#e67ea3")
-        
         titleNode.textContainerInset = .init(top: 20, left: 20, bottom: 20, right: 20)
         titleNode.attributedText = NSAttributedString(
             string: "게임설명",
@@ -198,9 +199,21 @@ class SetupViewController: ViewController {
     
 
     @objc func create() {
+        let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
         switch self.mode {
         case .person:
+            personModel.removeAll()
+            for index in 0 ..< number
+            {
+                personModel.append(SetupModel(type: "이름", name: "사람\(index+1)"))
+            }
+            collectionNode.model = personModel
+            
+        case .result:
+            collectionNode.model = resultModel
         }
+        collectionNode.collectionNode.reloadData()
+        self.view.endEditing(true)
     }
 
 }
