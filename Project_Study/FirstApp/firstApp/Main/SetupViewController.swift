@@ -82,6 +82,7 @@ class SetupViewController: ViewController {
         node.backgroundColor = UIColor.yellow
         node.style.height = .init(unit: .points, value: 20)
         node.setTitle("시작", with: nil, with: .blue, for: .normal)
+        node.addTarget(self, action: #selector(nextSetup), forControlEvents: .touchUpInside)
         node.borderWidth = 1
         return node
     }()
@@ -217,6 +218,22 @@ class SetupViewController: ViewController {
         collectionNode.model = model
         collectionNode.collectionNode.reloadData()
         self.view.endEditing(true)
+    }
+    @objc func nextSetup() {
+        if collectionNode.model.count > 0 {
+            self.mode = .result
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            // TODO: NSAttributedString 중복해서 쓰지 않게 하기
+            titleNode.attributedText = NSAttributedString(
+                string: "당첨자수",
+                attributes: [.font: UIFont.boldSystemFont(ofSize: 12),
+                             .foregroundColor : UIColor.white,
+                             .paragraphStyle : paragraphStyle,
+                ])
+            inputNode.attributedText = .init(string: "")
+            create()
+        }
     }
 }
 extension SetupViewController : ASEditableTextNodeDelegate
