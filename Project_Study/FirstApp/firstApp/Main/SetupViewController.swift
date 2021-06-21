@@ -202,22 +202,22 @@ class SetupViewController: ViewController {
 
     @objc func create() {
         let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
+        var model :[SetupModel] = []
         switch self.mode {
         case .person:
-            personModel.removeAll()
-            for index in 0 ..< number
-            {
-                personModel.append(SetupModel(type: "이름", name: "사람\(index+1)"))
-            }
-            collectionNode.model = personModel
-            
+            model = personModel
         case .result:
-            collectionNode.model = resultModel
+            model = resultModel
         }
+        model.removeAll()
+        for index in 0 ..< number
+        {
+            model.append(SetupModel(type: self.mode == .person ? "이름" : "내용" , name: self.mode == .person ? "사람\(index+1)" : "당첨\(index+1)" ))
+        }
+        collectionNode.model = model
         collectionNode.collectionNode.reloadData()
         self.view.endEditing(true)
     }
-
 }
 extension SetupViewController : ASEditableTextNodeDelegate
 {
