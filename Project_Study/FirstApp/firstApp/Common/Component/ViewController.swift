@@ -20,6 +20,11 @@ extension ASDisplayNode {
         contentNode.backgroundColor = UIColor.white
         return contentNode
     }
+    func setBackgroundColor (color: UIColor) -> ASDisplayNode
+    {
+        self.backgroundColor = color
+        return self
+    }
 }
 
 class ViewController: ASDKViewController<ASDisplayNode> {
