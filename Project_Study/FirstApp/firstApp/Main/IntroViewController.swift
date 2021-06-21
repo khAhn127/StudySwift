@@ -10,6 +10,14 @@ import AsyncDisplayKit
 
 class IntroViewController: ViewController {
 
+    override init(node: ASDisplayNode) {
+        super.init(node: node)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
