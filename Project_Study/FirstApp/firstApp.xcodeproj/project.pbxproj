@@ -238,8 +238,8 @@
 		C916D1842681A45F00148402 /* Winning */ = {
 			isa = PBXGroup;
 			children = (
-				C916D1852681A45F00148402 /* WinningCellNode.swift */,
 				C916D1862681A45F00148402 /* WinningNode.swift */,
+				C916D1852681A45F00148402 /* WinningCellNode.swift */,
 			);
 			path = Winning;
 			sourceTree = "<group>";
