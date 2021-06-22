@@ -19,6 +19,16 @@ class IntroViewController: ViewController {
         return node
     }()
     
+    lazy var stratNode : ASButtonNode = {
+        let node = ASButtonNode()
+        node.backgroundColor = .init(hexString: "#e67ea3")
+        node.contentEdgeInsets = .init(top: 40, left: 40, bottom: 40, right: 40)
+        node.setAttributedTitle(.init(string: "게임 시작"), for: .normal)
+        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
+        return node
+    }()
+    
+    
     override init(node: ASDisplayNode) {
         super.init(node: node)
         
