@@ -10,8 +10,18 @@ import AsyncDisplayKit
 
 class IntroViewController: ViewController {
 
+    lazy var titleNode : ASTextNode = {
+        let node = ASTextNode()
+        node.attributedText = .init(string: "사디타기 게임")
+        node.textContainerInset = .init(top: 0, left: 40, bottom: 40, right: 40)
+        node.backgroundColor = .init(hexString: "#e67ea3")
+        
+        return node
+    }()
+    
     override init(node: ASDisplayNode) {
         super.init(node: node)
+        
     }
     
     required init?(coder: NSCoder) {
