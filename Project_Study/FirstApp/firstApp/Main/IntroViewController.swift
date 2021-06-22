@@ -24,7 +24,7 @@ class IntroViewController: ViewController {
         node.backgroundColor = .init(hexString: "#e67ea3")
         node.contentEdgeInsets = .init(top: 40, left: 40, bottom: 40, right: 40)
         node.setAttributedTitle(.init(string: "게임 시작"), for: .normal)
-        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
+//        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
         return node
     }()
     
