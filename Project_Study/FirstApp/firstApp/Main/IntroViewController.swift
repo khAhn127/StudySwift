@@ -24,6 +24,7 @@ class IntroViewController: ViewController {
         node.backgroundColor = .init(hexString: "#e67ea3")
         node.contentEdgeInsets = .init(top: 40, left: 40, bottom: 40, right: 40)
         node.setAttributedTitle(.init(string: "게임 시작"), for: .normal)
+<<<<<<< Updated upstream
 //        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
         return node
     }()
@@ -32,6 +33,27 @@ class IntroViewController: ViewController {
     override init(node: ASDisplayNode) {
         super.init(node: node)
         
+=======
+        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
+        return node
+    }()
+    
+    override  init(node: ASDisplayNode) {
+        super.init(node: node)
+        self.node.layoutSpecBlock = { [weak self] (_,_)  in
+            guard let self = self else { return ASLayoutSpec() }
+            
+            return ASStackLayoutSpec(
+                direction: .vertical,
+                spacing: .zero,
+                justifyContent: .center,
+                alignItems: .center,
+                children: [
+                    self.titleNode,
+                    self.stratNode,
+                ])
+            }
+>>>>>>> Stashed changes
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +64,11 @@ class IntroViewController: ViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    @objc func goMain()
+    {
+        let navigation = NavigationViewController()
+        navigation.goMain()
     }
 
 }
