@@ -28,15 +28,6 @@ class IntroViewController: ViewController {
         return node
     }()
     
-    
-    override init(node: ASDisplayNode) {
-        super.init(node: node)
-        
-=======
-        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
-        return node
-    }()
-    
     override  init(node: ASDisplayNode) {
         super.init(node: node)
         self.node.layoutSpecBlock = { [weak self] (_,_)  in
