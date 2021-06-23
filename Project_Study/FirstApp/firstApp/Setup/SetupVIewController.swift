@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import UIKit
+
+class SetupViewController : NavigationViewController {
+    override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.blue
+        self.title = "Tab 1"
+    }
+}
