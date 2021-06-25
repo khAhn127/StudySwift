@@ -13,8 +13,8 @@ class IntroViewController: ViewController {
     lazy var titleNode : ASTextNode = {
         let node = ASTextNode()
         node.attributedText = .init(string: "사디타기 게임")
-        node.textContainerInset = .init(top: 0, left: 40, bottom: 40, right: 40)
-        node.backgroundColor = .init(hexString: "#e67ea3")
+        node.textContainerInset = .init(top: 10, left: 40, bottom: 10, right: 40)
+        node.backgroundColor = UIColor.white
         
         return node
     }()
@@ -24,7 +24,7 @@ class IntroViewController: ViewController {
         node.backgroundColor = .init(hexString: "#e67ea3")
         node.contentEdgeInsets = .init(top: 40, left: 40, bottom: 40, right: 40)
         node.setAttributedTitle(.init(string: "게임 시작"), for: .normal)
-//        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
+        node.addTarget(self, action: #selector(goMain), forControlEvents: .touchUpInside)
         return node
     }()
     
@@ -35,7 +35,7 @@ class IntroViewController: ViewController {
             
             return ASStackLayoutSpec(
                 direction: .vertical,
-                spacing: .zero,
+                spacing: 20,
                 justifyContent: .center,
                 alignItems: .center,
                 children: [
@@ -51,13 +51,13 @@ class IntroViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     @objc func goMain()
     {
         let navigation = NavigationViewController()
-        navigation.goMain()
+        navigation.transitionRootViewController(to:MainTabBarController(), transitionType: .push, transitionSubtype: .fromRight)
     }
 
 }
