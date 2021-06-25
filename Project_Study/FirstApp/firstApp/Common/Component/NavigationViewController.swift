@@ -9,23 +9,7 @@ import Foundation
 import AsyncDisplayKit
 
 class NavigationViewController: UINavigationController {
-    var viewController : ASDKViewController = ASDKViewController()
-    lazy var mainViewController : MainTabBarController =  MainTabBarController()
-
     
-    @objc func goMain()
-    {
-        if let window = UIApplication.shared.delegate?.window ?? nil, window.rootViewController is MainTabBarController {
-            // TODO: 다른텝에서 메인 탭으로 이동
-        } else {
-            self.transitionRootViewController(to: mainViewController, transitionType: .push, transitionSubtype: .fromRight) {
-                DispatchQueue.main.async {
-                    let window = UIApplication.shared.delegate?.window ?? nil
-                    print(window?.rootViewController)
-                }
-            }
-        }
-    }
 }
 extension NavigationViewController {
     func transitionRootViewController(to target: UIViewController, transitionType: CATransitionType, transitionSubtype: CATransitionSubtype, completion: @escaping ()->() = {}) {
