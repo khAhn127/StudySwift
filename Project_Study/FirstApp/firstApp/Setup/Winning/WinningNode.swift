@@ -22,40 +22,30 @@ class WinningNode : ASDisplayNode {
     
     lazy var headerNode : ASStackLayoutSpec = {
         let titleNode = ASTextNode()
-        titleNode.textContainerInset = .init(top: 0, left: 10, bottom: 0, right: 10)
+        titleNode.textContainerInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         titleNode.attributedText = .init(string: "당첨자 수")
-        
-       return ASStackLayoutSpec(
-        direction: .horizontal,
-        spacing: 0,
-        justifyContent: .spaceBetween,
-        alignItems: .stretch,
-        children: [
-            titleNode.styled({
-                $0.width = .init(unit: .points, value: 60)
-                $0.height = .init(unit: .fraction, value: 1)
-            }),
-            self.inputNode.styled({
-                $0.width = .init(unit: .fraction, value: 1)
-                $0.height = .init(unit: .fraction, value:1)
-            }),
-        ]).styled({
-            $0.width = .init(unit: .fraction, value: 1)
-            $0.height = .init(unit: .points, value: 20)
-        })
+        return ASStackLayoutSpec(
+         direction: .horizontal,
+         spacing: 0,
+         justifyContent: .center,
+         alignItems: .stretch,
+         children: [
+             titleNode.styled({
+                 $0.width = .init(unit: .fraction, value: 0.5)
+                 $0.height = .init(unit: .fraction, value: 0.5)
+             }),
+             self.inputNode.styled({
+                 $0.width = .init(unit: .fraction, value: 0.5)
+                 $0.height = .init(unit: .fraction, value:0.5)
+             }),
+         ])
+       
     }()
     
     var model :[WinningModel] = []
     
     lazy var dataListNode : DataCollectionNode<WinningModel,WinningCellNode> = {
         let node = DataCollectionNode<WinningModel,WinningCellNode>()
-       
-        model.append(.init(name: "test"))
-        model.append(.init(name: "test2"))
-        model.append(.init(name: "test3"))
-        model.append(.init(name: "test4"))
-        
-        node.model = model
         node.backgroundColor = UIColor.clear
         return node
     }()
@@ -63,18 +53,42 @@ class WinningNode : ASDisplayNode {
     lazy var footerNode : ASDisplayNode = {
         let node = ASDisplayNode()
         let back = ASButtonNode()
-        back.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
+        //back.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
         back.setAttributedTitle(.init(string: "Back"), for: .normal)
         back.addTarget(self, action: #selector(goBackButtonDidPress), forControlEvents: .touchUpInside)
         back.borderWidth = 2
         back.borderColor = UIColor.red.cgColor
         
         let product = ASButtonNode()
-        back.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
-        back.setAttributedTitle(.init(string: "생성"), for: .normal)
-        back.addTarget(self, action: #selector(produceButtonDidPress), forControlEvents: .touchUpInside)
-        back.borderWidth = 2
-        back.borderColor = UIColor.red.cgColor
+        //product.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
+        product.setAttributedTitle(.init(string: "생성"), for: .normal)
+        product.addTarget(self, action: #selector(produceButtonDidPress), forControlEvents: .touchUpInside)
+        product.borderWidth = 2
+        product.borderColor = UIColor.lightText.cgColor
+        
+        node.automaticallyManagesSubnodes = true
+        node.automaticallyRelayoutOnSafeAreaChanges = true
+        node.automaticallyRelayoutOnLayoutMarginsChanges = true
+        
+        node.layoutSpecBlock = { [weak self] (_,_) in
+            guard let self = self else { return ASLayoutSpec() }
+            return ASStackLayoutSpec(
+                direction: .horizontal,
+                spacing: 0,
+                justifyContent: .center,
+                alignItems: .stretch,
+                children: [
+                    back.styled({
+                        $0.width = .init(unit: .fraction, value: 0.5)
+                        $0.width = .init(unit: .fraction, value: 0.5)
+                    }),
+                    product.styled({
+                        $0.width = .init(unit: .fraction, value: 0.5)
+                        $0.width = .init(unit: .fraction, value: 0.5)
+                    }),
+                ]
+            )
+        }
         return node
     }()
     
