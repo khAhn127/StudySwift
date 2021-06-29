@@ -96,5 +96,46 @@ class SetupViewController : ViewController {
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white
+        swipeRecognizer()
     }
+    
+}
+extension SetupViewController {
+    func swipeRecognizer() {
+        // Initialize Swipe Gesture Recognizer
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        // Configure Swipe Gesture Recognizer
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+        
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
+        switch (gesture as? UISwipeGestureRecognizer)?.direction{
+        case UISwipeGestureRecognizer.Direction.right:
+            // 스와이프 시, 원하는 기능 구현.
+            switch self.mode {
+            case .player :
+                self.mode = .winning
+                break
+            case .winning :
+                break
+            }
+            break
+        case UISwipeGestureRecognizer.Direction.left:
+            switch self.mode {
+            case .player :
+                break
+            case .winning :
+                self.mode = .player
+                break
+            }
+            break
+        default: break
+        }
+    }
+
 }
