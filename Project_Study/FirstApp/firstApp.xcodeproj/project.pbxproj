@@ -27,6 +27,9 @@
 		C916D1832681A44500148402 /* GameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916D1812681A44500148402 /* GameNode.swift */; };
 		C916D1872681A45F00148402 /* WinningCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916D1852681A45F00148402 /* WinningCellNode.swift */; };
 		C916D1882681A45F00148402 /* WinningNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916D1862681A45F00148402 /* WinningNode.swift */; };
+		C91A11A1268959D90089400F /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91A11A0268959D90089400F /* PlayerModel.swift */; };
+		C91A11A32689978F0089400F /* WinnigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91A11A22689978F0089400F /* WinnigModel.swift */; };
+		C92177552685DEDE00C8652B /* DataCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92177542685DEDE00C8652B /* DataCollectionNode.swift */; };
 		C9E073D72681A5C80081B81C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E073D62681A5C80081B81C /* AppDelegate.swift */; };
 		C9EF093126773C7200B2D89D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF093026773C7200B2D89D /* UIColor.swift */; };
 		C9EF0939267C758800B2D89D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EF0938267C758800B2D89D /* String.swift */; };
@@ -80,6 +83,9 @@
 		C916D1812681A44500148402 /* GameNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameNode.swift; sourceTree = "<group>"; };
 		C916D1852681A45F00148402 /* WinningCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinningCellNode.swift; sourceTree = "<group>"; };
 		C916D1862681A45F00148402 /* WinningNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinningNode.swift; sourceTree = "<group>"; };
+		C91A11A0268959D90089400F /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		C91A11A22689978F0089400F /* WinnigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnigModel.swift; sourceTree = "<group>"; };
+		C92177542685DEDE00C8652B /* DataCollectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollectionNode.swift; sourceTree = "<group>"; };
 		C9E073D62681A5C80081B81C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9EF093026773C7200B2D89D /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = ../../../../../../UIColor.swift; sourceTree = "<group>"; };
 		C9EF0938267C758800B2D89D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -231,6 +237,7 @@
 			children = (
 				C916D1782681A3E900148402 /* PlayerNode.swift */,
 				C916D1792681A3E900148402 /* PlayerCellNode.swift */,
+				C91A11A0268959D90089400F /* PlayerModel.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -240,6 +247,7 @@
 			children = (
 				C916D1862681A45F00148402 /* WinningNode.swift */,
 				C916D1852681A45F00148402 /* WinningCellNode.swift */,
+				C91A11A22689978F0089400F /* WinnigModel.swift */,
 			);
 			path = Winning;
 			sourceTree = "<group>";
@@ -247,6 +255,7 @@
 		C92177532685D24300C8652B /* Collection */ = {
 			isa = PBXGroup;
 			children = (
+				C92177542685DEDE00C8652B /* DataCollectionNode.swift */,
 			);
 			name = Collection;
 			sourceTree = "<group>";
@@ -537,10 +546,13 @@
 				C9EF093126773C7200B2D89D /* UIColor.swift in Sources */,
 				C916D15B2680778D00148402 /* IntroViewController.swift in Sources */,
 				C90F8E4026661C01003B09A7 /* SceneDelegate.swift in Sources */,
+				C91A11A1268959D90089400F /* PlayerModel.swift in Sources */,
 				C916D17B2681A3E900148402 /* PlayerCellNode.swift in Sources */,
+				C91A11A32689978F0089400F /* WinnigModel.swift in Sources */,
 				C916D1882681A45F00148402 /* WinningNode.swift in Sources */,
 				C916D17F2681A42B00148402 /* SetupVIewController.swift in Sources */,
 				C9EF536D26733D8B00CD7A88 /* ASDKViewController.swift in Sources */,
+				C92177552685DEDE00C8652B /* DataCollectionNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
