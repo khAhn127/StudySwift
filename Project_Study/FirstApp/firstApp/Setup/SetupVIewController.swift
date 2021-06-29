@@ -10,6 +10,32 @@ import UIKit
 import AsyncDisplayKit
 
 class SetupViewController : ViewController {
+    enum Mode {
+        case player
+        case winning
+    }
+    var mode = Mode.player {
+        didSet {
+            switch mode {
+            case .player :
+                fallthrough
+            case .winning :
+                self.contentsNode.setNeedsLayout()
+            }
+        }
+    }
+
+    lazy var playerNode = PlayerNode(onNext: { [weak self] in
+        self?.mode = .winning
+    }).setBackgroundColor(color:.init(hexString: "#e67ea3") )
+    lazy var winningNode = WinningNode(toProduct: { [weak self] in
+        // TODO: check validation for model count
+        
+        
+        self?.tabBarController?.selectedIndex = 1
+    }, goBack: { [weak self] in
+        self?.mode = .player
+    }).setBackgroundColor(color:.init(hexString: "#8c79b4") )
     
     lazy var titleNode : ASDisplayNode = {
         let node = ASDisplayNode()
@@ -18,7 +44,6 @@ class SetupViewController : ViewController {
         node.automaticallyRelayoutOnSafeAreaChanges = true
         node.automaticallyRelayoutOnLayoutMarginsChanges = true
         node.backgroundColor = UIColor.white
-       
         textNode.attributedText = .init(string: "게임설정")
         node.layoutSpecBlock = { [weak self] (_,_) in
             guard let self = self else {
@@ -44,17 +69,28 @@ class SetupViewController : ViewController {
         node.automaticallyManagesSubnodes = true
         node.automaticallyRelayoutOnSafeAreaChanges = true
         node.automaticallyRelayoutOnLayoutMarginsChanges = true
+        node.borderWidth = 1
+        node.borderColor = UIColor.yellow.cgColor
         node.backgroundColor = UIColor.white
+   
         node.layoutSpecBlock = { [weak self] (_,_) in
             guard let self = self else { return ASLayoutSpec() }
+            var child = ASDisplayNode()
+            switch self.mode {
+            case .player:
+                child = self.playerNode
+            case .winning:
+                child = self.winningNode
+            }
+            
             return ASInsetLayoutSpec(
-                insets: .init(top: 10, left: 10, bottom: 10, right: 10),
-                child: PlayerNode().setBackgroundColor(color:.init(hexString: "#e67ea3") )
+                insets: .zero,
+                child: child
             )
         }
         return node
     }()
-    
+
     override init(node: ASDisplayNode) {
         super.init(node: node)
 
@@ -87,9 +123,7 @@ class SetupViewController : ViewController {
             )
         }
     }
-    
-    
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
