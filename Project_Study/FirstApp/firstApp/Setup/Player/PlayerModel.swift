@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct PlayerModel : Codable
+{
+    let name :String
+    
+    enum Codingkeys : Int,CodingKey{
+        case name
+    }
+}
