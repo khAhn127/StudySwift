@@ -11,7 +11,6 @@ import UIKit
 
 class WinningNode : ASDisplayNode {
 
-    
     lazy var inputNode : ASEditableTextNode = {
         let node = ASEditableTextNode()
         node.textContainerInset = .init(top: 0, left: 0, bottom: 0, right: 0)
@@ -48,7 +47,7 @@ class WinningNode : ASDisplayNode {
     
     var model :[WinningModel] = []
     
-    lazy var collectionNode : DataCollectionNode<WinningModel,WinningCellNode> = {
+    lazy var dataListNode : DataCollectionNode<WinningModel,WinningCellNode> = {
         let node = DataCollectionNode<WinningModel,WinningCellNode>()
        
         model.append(.init(name: "test"))
@@ -105,7 +104,7 @@ class WinningNode : ASDisplayNode {
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .points, value: 8)
                     }).setBackgroundColor(color: UIColor.black),
-                    collectionNode.styled({
+                    self.dataListNode.styled({
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .fraction, value: 1)
                     }),
@@ -132,6 +131,50 @@ class WinningNode : ASDisplayNode {
         self.automaticallyRelayoutOnSafeAreaChanges = true
         self.automaticallyRelayoutOnLayoutMarginsChanges = true
     }
+
+    override func didLoad() {
+        let toolBarKeyboard = UIToolbar()
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: .none, action: .none)
+        let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create))
+        toolBarKeyboard.items = [space,btnDoneBar]
+        toolBarKeyboard.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        toolBarKeyboard.backgroundColor = .init(hexString: "#8c79b4")
+        toolBarKeyboard.sizeToFit()
+
+        inputNode.textView.inputAccessoryView = toolBarKeyboard
+        //comment 최대 라인 수
+        inputNode.textView.textContainer.maximumNumberOfLines = 1
+        // Do any additional setup after loading the view.
+
+    }
+    
+    @objc func create() {
+        let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
+        model.removeAll()
+        for index in 0 ..< number
+        {
+            model.append(WinningModel(name: "사람\(index + 1)"))
+        }
+        dataListNode.model = model
+        dataListNode.collectionNode.reloadData()
+        self.view.endEditing(true)
+    }
     
 
+}
+extension WinningNode : ASEditableTextNodeDelegate
+{
+    func editableTextNodeShouldBeginEditing(_ editableTextNode: ASEditableTextNode) -> Bool {
+        return true
+    }
+    func editableTextNode(_ editableTextNode: ASEditableTextNode, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let nsString = editableTextNode.textView.text as NSString?
+        guard
+            let newString = nsString?.replacingCharacters(in: range, with: text),
+            newString.lengthOfBytes(using: .utf8) <= 1
+        else {
+            return false
+        }
+        return true
+    }
 }

@@ -54,12 +54,8 @@ class PlayerNode : ASDisplayNode {
     
     var model :[PlayerModel] = []
     
-    lazy var collectionNode : DataCollectionNode<PlayerModel,PlayerCellNode> = {
+    lazy var dataListNode : DataCollectionNode<PlayerModel,PlayerCellNode> = {
         let node = DataCollectionNode<PlayerModel,PlayerCellNode>()
-       
-        model.append(.init(name: "test"))
-        model.append(.init(name: "test2"))
-        node.model = model
         node.backgroundColor = UIColor.clear
         return node
     }()
@@ -96,7 +92,7 @@ class PlayerNode : ASDisplayNode {
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .points, value: 8)
                     }).setBackgroundColor(color: UIColor.black),
-                    collectionNode.styled({
+                    dataListNode.styled({
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .fraction, value: 1)
                     }),
@@ -129,7 +125,6 @@ class PlayerNode : ASDisplayNode {
         toolBarKeyboard.items = [space,btnDoneBar]
         toolBarKeyboard.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         toolBarKeyboard.backgroundColor = .init(hexString: "#8c79b4")
-        //#colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         toolBarKeyboard.sizeToFit()
 
         inputNode.textView.inputAccessoryView = toolBarKeyboard
@@ -138,20 +133,21 @@ class PlayerNode : ASDisplayNode {
         // Do any additional setup after loading the view.
 
     }
+    
     @objc func create() {
-            let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
-            model.removeAll()
-            for index in 0 ..< number
-            {
-                model.append(PlayerModel(name: "사람\(index + 1)"))
-            }
-            collectionNode.model = model
-            collectionNode.collectionNode.reloadData()
-            self.view.endEditing(true)
+        let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
+        model.removeAll()
+        for index in 0 ..< number
+        {
+            model.append(PlayerModel(name: "사람\(index + 1)"))
         }
+        dataListNode.model = model
+        dataListNode.collectionNode.reloadData()
+        self.view.endEditing(true)
+    }
 
 }
-extension SetupViewController : ASEditableTextNodeDelegate
+extension PlayerNode : ASEditableTextNodeDelegate
 {
     func editableTextNodeShouldBeginEditing(_ editableTextNode: ASEditableTextNode) -> Bool {
         return true
