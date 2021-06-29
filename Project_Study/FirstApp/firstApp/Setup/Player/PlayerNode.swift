@@ -39,12 +39,12 @@ class PlayerNode : ASDisplayNode {
                 alignItems: .stretch,
                 children: [
                     titleNode.styled({
-                        $0.width = .init(unit: .points, value: 60)
-                        $0.height = .init(unit: .fraction, value: 1)
+                        $0.width = .init(unit: .fraction, value: 0.5)
+                        $0.height = .init(unit: .fraction, value: 0.5)
                         }),
                     self.inputNode.styled({
                         $0.width = .init(unit: .fraction, value: 0.5)
-                        $0.height = .init(unit: .fraction, value:1)
+                        $0.height = .init(unit: .fraction, value: 0.5)
                         }),
                     ]
                 )
@@ -64,13 +64,13 @@ class PlayerNode : ASDisplayNode {
         let node = ASButtonNode()
         node.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
         node.setAttributedTitle(.init(string: "NEXT"), for: .normal)
-        node .addTarget(self, action: #selector(ButtonDidPress), forControlEvents: .touchUpInside)
+        node .addTarget(self, action: #selector(nextButtonDidPress), forControlEvents: .touchUpInside)
         node.borderWidth = 2
         node.borderColor = UIColor.lightText.cgColor
         return node
     }()
     
-    @objc func ButtonDidPress(_ button: ASButtonNode) {
+    @objc func nextButtonDidPress(_ button: ASButtonNode) {
         onNext()
     }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -110,7 +110,6 @@ class PlayerNode : ASDisplayNode {
     
     let onNext: ()->()
     init(onNext: @escaping ()->() = {} ) {
-        //comment escaping
         self.onNext = onNext
         super.init()
         self.automaticallyManagesSubnodes = true
