@@ -102,7 +102,7 @@ class DrawView : UIView{
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         var vertical:CGFloat = 0
-
+        var playersCount = 8
         //comment Y축 라인 선 그리기
         for x in 1...9{
             vertical = vertical + ((self.bounds.width-10)/10)
@@ -120,13 +120,6 @@ class DrawView : UIView{
                 
                 data[randomX][randomY] = 1
             }
-            context.setStrokeColor(UIColor.white.cgColor)
-            context.move(to: CGPoint(x:0,
-                                     y: (((self.bounds.height-10)/10)*CGFloat(x))))
-            context.addLine(to: CGPoint(x: ((self.bounds.width-10)/10)*CGFloat(1) ,
-                                        y: (((self.bounds.height-10)/10)*CGFloat(x))))
-            context.strokePath()
-            context.closePath()
         }
         //comment 중복 체크
         var count : Int = 0
