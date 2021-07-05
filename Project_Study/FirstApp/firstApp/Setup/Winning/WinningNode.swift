@@ -97,7 +97,7 @@ class WinningNode : ASDisplayNode {
     }
     
     @objc func produceButtonDidPress(_ button: ASButtonNode) {
-        toProduct()
+        toProduct(model.count)
     }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.borderColor = UIColor.blue.cgColor
@@ -134,10 +134,10 @@ class WinningNode : ASDisplayNode {
             )
     }
     
-    let toProduct: ()->()
+    let toProduct: (Int)->()
     let goBack: ()->()
     
-    init(toProduct: @escaping ()->() = {} , goBack: @escaping ()->() = {}) {
+    init(toProduct: @escaping (Int)->() , goBack: @escaping ()->() = {}) {
         self.toProduct = toProduct
         self.goBack = goBack
         super.init()
@@ -164,6 +164,17 @@ class WinningNode : ASDisplayNode {
     
     @objc func create() {
         let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
+        
+        if number > 4 {
+            let alert = UIAlertController(title: "초과", message: "Max 4 초과 입니다.", preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+                
+            }
+            alert.addAction(okAction)
+            self.closestViewController?.present(alert, animated: false, completion: nil)
+            return;
+        }
+        
         model.removeAll()
         for index in 0 ..< number
         {

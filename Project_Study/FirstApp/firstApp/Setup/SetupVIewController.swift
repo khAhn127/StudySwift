@@ -25,13 +25,15 @@ class SetupViewController : ViewController {
         }
     }
 
-    lazy var playerNode = PlayerNode(onNext: { [weak self] in
+    lazy var playerNode = PlayerNode(onNext: { [weak self] (count) in
         self?.mode = .winning
+        let mainTab = self?.tabBarController as? MainTabBarController
+        mainTab?.playersCount = count
     }).setBackgroundColor(color:.init(hexString: "#e67ea3") )
-    lazy var winningNode = WinningNode(toProduct: { [weak self] in
+    lazy var winningNode = WinningNode(toProduct: { [weak self] (count) in
         // TODO: check validation for model count
-        
-        
+        let mainTab = self?.tabBarController as? MainTabBarController
+        mainTab?.winningCount = count
         self?.tabBarController?.selectedIndex = 1
     }, goBack: { [weak self] in
         self?.mode = .player

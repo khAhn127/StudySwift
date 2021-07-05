@@ -47,6 +47,9 @@ class GameNode :ASDisplayNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        
+        
+        
         return ASInsetLayoutSpec(
             insets: .init(top: 20, left: 10, bottom: 20, right: 10),
             child: ASStackLayoutSpec(
@@ -82,18 +85,15 @@ class GameNode :ASDisplayNode {
         )
     }
     @objc func reset() {
-    
         let drawView =  self.drawNode.view as? DrawView
-        drawView?.layer.sublayers?.removeAll()
-//        self.drawNode.view.setNeedsDisplay()
+      
+        
     }
     @objc func start() {
-    
         let drawView =  self.drawNode.view as? DrawView
-       
-        drawView?.player()
+        drawView?.layer.sublayers?.removeAll()
+        drawView?.player(1)
       
-        //self.drawNode.view.setNeedsDisplay()
     }
 }
 
@@ -102,9 +102,7 @@ class DrawView : UIView{
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         var vertical:CGFloat = 0
- 
-//        var xy : [String] = []
-       
+
         //comment Y축 라인 선 그리기
         for x in 1...9{
             vertical = vertical + ((self.bounds.width-10)/10)
@@ -138,14 +136,11 @@ class DrawView : UIView{
             for y in 1...8{
                 if data[x][y] == 0 {
                     count += 1
-//                    print("x:\(x) y: \(y)")
-//                    continue
                 }
                 if y > 0 && y < 9 {
                     //comment 동일 라인 선 중복 시 오른쪽 삭제
                     if data[x][y] == data[x][y+1] {
                         data[x][y+1] = 0
-//                        continue
                     }
                 }
                 if data[x][y] == 1 {
@@ -158,7 +153,6 @@ class DrawView : UIView{
                     context.strokePath()
                     context.closePath()
                 }
-//                print("x:\(x) y: \(y)")
             }
             var n = count - 2
             while n < count {
@@ -175,27 +169,14 @@ class DrawView : UIView{
                                                     y: (((self.bounds.height-10)/10)*CGFloat(x))))
                         context.strokePath()
                         data[x][y2] = 1
-//                        print("Count - x:\(x) y: \(y2)")
                         n += 1
-//                    }
                 } else { n += 1 }
 
             }
         }
-        
-        for dat in data{
-            print(dat)
-        }
-        
-        for dx in 1...9{
-            print("1x: \(data[dx][1])")
-        }
-        for dx in 1...9{
-            print("2x: \(data[dx][2])")
-        }
     }
     
-    func player(playerNumber : Int) {
+    func player(_ playerNumber : Int) {
         let width : CGFloat = ((self.bounds.width-10)/10)
         let height : CGFloat = ((self.bounds.height-10)/10)
         var v = 0
