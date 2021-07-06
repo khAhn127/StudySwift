@@ -71,7 +71,7 @@ class PlayerNode : ASDisplayNode {
     }()
     
     @objc func nextButtonDidPress(_ button: ASButtonNode) {
-        onNext()
+        onNext(model.count)
     }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.borderColor = UIColor.blue.cgColor
@@ -108,8 +108,8 @@ class PlayerNode : ASDisplayNode {
             )
     }
     
-    let onNext: ()->()
-    init(onNext: @escaping ()->() = {} ) {
+    let onNext: (Int)->()
+    init(onNext: @escaping (Int)->() ) {
         self.onNext = onNext
         super.init()
         self.automaticallyManagesSubnodes = true

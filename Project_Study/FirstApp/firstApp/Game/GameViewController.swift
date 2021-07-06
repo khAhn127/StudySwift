@@ -10,6 +10,10 @@ import UIKit
 import AsyncDisplayKit
 
 class GameViewController : ViewController {
+    var playersCount = 1
+    var winningCount = 1
+    var isStart = false
+    
     override init(node: ASDisplayNode) {
         super.init(node: node)
         node.layoutSpecBlock = { [weak self] (_,_) in
@@ -18,8 +22,11 @@ class GameViewController : ViewController {
             }
             return ASInsetLayoutSpec(
                 insets: self.view.safeAreaInsets,
-                child: GameNode()
-            )
+                child: 
+                    (self.isStart == true ? GameNode() : ASDisplayNode().styled({
+                        $0.width = .init(unit: .fraction, value: 1)
+                        $0.height = .init(unit: .fraction, value: 1)
+                    }).setBackgroundColor(color: UIColor.darkGray)))
         }
     }
     

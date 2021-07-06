@@ -65,6 +65,8 @@ enum MainTab : Int, CaseIterable{
 
 class MainTabBarController : UITabBarController
 {
+    var playersCount = 1
+    var winningCount = 1
     lazy var tabs: [UIViewController]? = {
         var viewControllers :[UIViewController] = []
         for navController in MainTab.allCases {
@@ -88,7 +90,24 @@ class MainTabBarController : UITabBarController
 extension MainTabBarController : UITabBarControllerDelegate
 {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        print("Selected \(viewController.title!)")
-        print("Selected is RootViewController :\(String(describing: (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).window?.rootViewController))")
+        
+//        print("Selected \(viewController.title!)")
+//        print("Selected is RootViewController :\(String(describing: (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).window?.rootViewController))")
+    
+        if let vc = viewController as? GameViewController {
+            guard (self.playersCount < 2 && self.winningCount < 1) else {
+                let alert = UIAlertController(title: "경고", message: "아직 생성 되지 않았습니다.\n 설정 탭으로 이동해주세요.", preferredStyle: UIAlertController.Style.alert)
+                let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+                    
+                }
+                alert.addAction(okAction)
+                present(alert, animated: false, completion: nil)
+                return
+            }
+            vc.playersCount = self.playersCount
+            vc.winningCount = self.winningCount
+            vc.isStart = true
+            vc.node.setNeedsLayout()
+        }
      }
 }
