@@ -10,8 +10,6 @@ import UIKit
 import AsyncDisplayKit
 
 class GameNode :ASDisplayNode {
-
-    
     
     lazy var drawNode :ASDisplayNode = {
         let node = ASDisplayNode{ return DrawView(frame:self.view.frame)
