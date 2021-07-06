@@ -85,7 +85,7 @@ class GameNode :ASDisplayNode {
         )
     }
     @objc func reset() {
-        let drawView =  self.drawNode.view as? DrawView
+        _ =  self.drawNode.view as? DrawView
       
         
     }
@@ -98,9 +98,21 @@ class GameNode :ASDisplayNode {
 }
 
 class DrawView : UIView{
+    lazy var gameWidth : CGFloat = {
+        let width = CGFloat()
+        return width
+    }()
+    lazy var gameHeight : CGFloat = {
+        let height = CGFloat()
+        return height
+    }()
+    
     var data :[[Int]] = [[Int]](repeating: [Int](repeating:0, count: 11), count: 11)
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
+        gameWidth = self.bounds.width
+        gameHeight = self.bounds.height
+        
         var vertical:CGFloat = 0
         var playersCount = 8
         //comment Y축 라인 선 그리기
@@ -139,10 +151,10 @@ class DrawView : UIView{
                 if data[x][y] == 1 {
                 
                     context.setStrokeColor(UIColor.black.cgColor)
-                    context.move(to: CGPoint(x: (((self.bounds.width-10)/10)*CGFloat(y)),
-                                             y: (((self.bounds.height-10)/10)*CGFloat(x)) ))
-                    context.addLine(to: CGPoint(x: ((self.bounds.width-10)/10)*CGFloat(y+1) ,
-                                                y: (((self.bounds.height-10)/10)*CGFloat(x))))
+                    context.move(to: CGPoint(x: self.gameWidth*CGFloat(y),
+                                             y: self.gameHeight*CGFloat(x)))
+                    context.addLine(to: CGPoint(x: self.gameWidth*CGFloat(y+1),
+                                                y: self.gameHeight*CGFloat(x)))
                     context.strokePath()
                     context.closePath()
                 }
@@ -154,12 +166,11 @@ class DrawView : UIView{
                 if y2 > 0 && y2 < 9 {
                     if data[x][y2+1] == 1 { continue }
                     if data[x][y2-1] == 1 { continue }
-
                         context.setStrokeColor(UIColor.black.cgColor)
-                        context.move(to: CGPoint(x: (((self.bounds.width-10)/10)*CGFloat(y2)),
-                                                 y: (((self.bounds.height-10)/10)*CGFloat(x)) ))
-                        context.addLine(to: CGPoint(x: ((self.bounds.width-10)/10)*CGFloat(y2+1) ,
-                                                    y: (((self.bounds.height-10)/10)*CGFloat(x))))
+                        context.move(to: CGPoint(x: self.gameWidth*CGFloat(y2),
+                                                 y: self.gameHeight*CGFloat(x)))
+                        context.addLine(to: CGPoint(x: self.gameWidth*CGFloat(y2+1),
+                                                    y: self.gameHeight*CGFloat(x)))
                         context.strokePath()
                         data[x][y2] = 1
                         n += 1
@@ -170,8 +181,7 @@ class DrawView : UIView{
     }
     
     func player(_ playerNumber : Int) {
-        let width : CGFloat = ((self.bounds.width-10)/10)
-        let height : CGFloat = ((self.bounds.height-10)/10)
+        
         var v = 0
         var h = playerNumber
         let maxLine = 10
@@ -184,20 +194,20 @@ class DrawView : UIView{
                 if self.data[v][h] == 0 {
                     //comment left 라인 체크
                     if (self.data[v][h-1] == 1) {
-                        path.move(to: CGPoint(x: width * CGFloat(h) , y: height * CGFloat(v)))
-                        path.addLine(to: CGPoint(x: width * CGFloat(h-1) , y: height * CGFloat(v)))
+                        path.move(to: CGPoint(x: self.gameWidth * CGFloat(h) , y: self.gameHeight * CGFloat(v)))
+                        path.addLine(to: CGPoint(x: self.gameWidth * CGFloat(h-1) , y: self.gameHeight * CGFloat(v)))
                         h -= 1
                     }
-                    path.move(to: CGPoint(x: width * CGFloat(h) , y: height * CGFloat(v)))
-                    path.addLine(to: CGPoint(x: width * CGFloat(h) , y: height * CGFloat(v+1)))
+                    path.move(to: CGPoint(x: self.gameWidth * CGFloat(h) , y: self.gameHeight * CGFloat(v)))
+                    path.addLine(to: CGPoint(x: self.gameWidth * CGFloat(h) , y: self.gameHeight * CGFloat(v+1)))
                     v += 1
                 } else if self.data[v][h] == 1 {    //comment right 라인 체크 후 y축 다운
-                    path.move(to: CGPoint(x: width * CGFloat(h) , y: height * CGFloat(v)))
-                    path.addLine(to: CGPoint(x: width * CGFloat(h+1) , y: height * CGFloat(v)))
+                    path.move(to: CGPoint(x: self.gameWidth * CGFloat(h) , y: self.gameHeight * CGFloat(v)))
+                    path.addLine(to: CGPoint(x: self.gameWidth * CGFloat(h+1) , y: self.gameHeight * CGFloat(v)))
                     h += 1
                     
-                    path.move(to: CGPoint(x: width * CGFloat(h) , y: height * CGFloat(v)))
-                    path.addLine(to: CGPoint(x: width * CGFloat(h) , y: height * CGFloat(v+1)))
+                    path.move(to: CGPoint(x: self.gameWidth * CGFloat(h) , y: self.gameHeight * CGFloat(v)))
+                    path.addLine(to: CGPoint(x: self.gameWidth * CGFloat(h) , y: self.gameHeight * CGFloat(v+1)))
                     v += 1
                 }
                
