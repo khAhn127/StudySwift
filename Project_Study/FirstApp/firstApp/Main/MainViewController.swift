@@ -95,7 +95,7 @@ extension MainTabBarController : UITabBarControllerDelegate
 //        print("Selected is RootViewController :\(String(describing: (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).window?.rootViewController))")
     
         if let vc = viewController as? GameViewController {
-            guard (self.playersCount < 2 && self.winningCount < 1) else {
+            guard (self.playersCount >= 2 || self.winningCount >= 1) else {
                 let alert = UIAlertController(title: "경고", message: "아직 생성 되지 않았습니다.\n 설정 탭으로 이동해주세요.", preferredStyle: UIAlertController.Style.alert)
                 let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
                     
