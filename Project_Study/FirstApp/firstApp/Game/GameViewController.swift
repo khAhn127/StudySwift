@@ -13,8 +13,7 @@ class GameViewController : ViewController {
     var playersCount:Int = 1
     var winningCount:Int = 1
     var isStart = false
-   
-    
+
     override init(node: ASDisplayNode) {
         super.init(node: node)
         node.layoutSpecBlock = { [weak self] (_,_) in
@@ -29,9 +28,8 @@ class GameViewController : ViewController {
                     justifyContent: .center,
                     alignItems: .stretch,
                     children: [
-                        (self.isStart == true ? GameNode(self.playersCount,self.winningCount).styled({
-                                                                $0.width = .init(unit: .fraction, value: 1)
-                                                                $0.height = .init(unit: .fraction, value: 1)})
+                        (self.isStart == true ? GameNode(self.playersCount,self.winningCount).styled({ $0.width = .init(unit: .fraction, value: 1)
+                                                                                                        $0.height = .init(unit: .fraction, value: 1)})
                             : ASDisplayNode().styled({
                                                         $0.width = .init(unit: .fraction, value: 1)
                                                         $0.height = .init(unit: .fraction, value: 1)}).setBackgroundColor(color: UIColor.darkGray)),

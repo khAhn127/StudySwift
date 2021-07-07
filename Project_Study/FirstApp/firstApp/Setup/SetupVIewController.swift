@@ -34,7 +34,10 @@ class SetupViewController : ViewController {
         // TODO: check validation for model count
         let mainTab = self?.tabBarController as? MainTabBarController
         mainTab?.winningCount = count
-        self?.tabBarController?.selectedIndex = 1
+        let vc = self?.tabBarController?.viewControllers?[1]
+        if self?.tabBarController?.delegate?.tabBarController?( (self?.tabBarController)!, shouldSelect: vc!) == true {
+            self?.tabBarController?.selectedIndex = 1
+        }
     }, goBack: { [weak self] in
         self?.mode = .player
     }).setBackgroundColor(color:.init(hexString: "#8c79b4") )
