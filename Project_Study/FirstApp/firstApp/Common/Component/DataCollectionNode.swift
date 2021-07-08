@@ -12,8 +12,8 @@ import DifferenceKit
 
 public typealias RawModel = Codable
 
-class DataCollectionNode<Model : Codable, Cell: ASCellNode>: ASDisplayNode, ASCollectionDataSource, ASCollectionDelegate, ASCollectionDelegateFlowLayout, ASCollectionViewLayoutInspecting  {
-    var model : [Model] = []
+class DataCollectionNode<Model: Codable, Cell: ASCellNode>: ASDisplayNode, ASCollectionDataSource, ASCollectionDelegate, ASCollectionDelegateFlowLayout, ASCollectionViewLayoutInspecting {
+    var model: [Model] = []
     
     lazy var collectionNode: ASCollectionNode = {
         let layout = UICollectionViewFlowLayout()
@@ -27,8 +27,6 @@ class DataCollectionNode<Model : Codable, Cell: ASCellNode>: ASDisplayNode, ASCo
         return node
     }()
     
-
-    
     override init() {
         super.init()
         self.automaticallyManagesSubnodes = true
@@ -38,7 +36,6 @@ class DataCollectionNode<Model : Codable, Cell: ASCellNode>: ASDisplayNode, ASCo
     
     override func didLoad() {
         super.didLoad()
-        
         collectionNode.view.delaysContentTouches = false
         //comment collectionNode의 자동 스크롤 조정 없이
         collectionNode.view.contentInsetAdjustmentBehavior = .never
@@ -68,11 +65,8 @@ class DataCollectionNode<Model : Codable, Cell: ASCellNode>: ASDisplayNode, ASCo
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
         var cellNode = Cell()
-        let model : Model  = self.model[indexPath.item]
-        
-        if cellNode is PlayerCellNode {
-            
-        }
+        let model: Model = self.model[indexPath.item]
+
         switch cellNode {
         case is PlayerCellNode:
             (cellNode as! PlayerCellNode).inputNode.attributedText = .init(string: (model as! PlayerModel).name )

@@ -9,19 +9,14 @@ import Foundation
 import UIKit
 import AsyncDisplayKit
 
-class SetupViewController : ViewController {
+class SetupViewController: ViewController {
     enum Mode {
         case player
         case winning
     }
     var mode = Mode.player {
         didSet {
-            switch mode {
-            case .player :
-                fallthrough
-            case .winning :
-                self.contentsNode.setNeedsLayout()
-            }
+            self.contentsNode.setNeedsLayout()
         }
     }
 
@@ -29,12 +24,14 @@ class SetupViewController : ViewController {
         self?.mode = .winning
         let mainTab = self?.tabBarController as? MainTabBarController
         mainTab?.playersCount = count
-    }).setBackgroundColor(color:.init(hexString: "#e67ea3") )
+    }).setBackgroundColor(color: .init(hexString: "#e67ea3") )
+    
     lazy var winningNode = WinningNode(toProduct: { [weak self] (count) in
         // TODO: check validation for model count
         let mainTab = self?.tabBarController as? MainTabBarController
         mainTab?.winningCount = count
         let vc = self?.tabBarController?.viewControllers?[1]
+        // if 문 수정
         if self?.tabBarController?.delegate?.tabBarController?( (self?.tabBarController)!, shouldSelect: vc!) == true {
             self?.tabBarController?.selectedIndex = 1
         }
@@ -142,19 +139,20 @@ class SetupViewController : ViewController {
 extension SetupViewController {
     func swipeRecognizer() {
         // Initialize Swipe Gesture Recognizer
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
         // Configure Swipe Gesture Recognizer
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
         
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         self.view.addGestureRecognizer(swipeLeft)
     }
         
-    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
-        switch (gesture as? UISwipeGestureRecognizer)?.direction{
-        case UISwipeGestureRecognizer.Direction.right:
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
+        guard let recognizer = gesture as? UISwipeGestureRecognizer else { return }
+        switch recognizer.direction {
+        case .right:
             // 스와이프 시, 원하는 기능 구현.
             switch self.mode {
             case .player :
@@ -164,7 +162,7 @@ extension SetupViewController {
                 break
             }
             break
-        case UISwipeGestureRecognizer.Direction.left:
+        case .left:
             switch self.mode {
             case .player :
                 break

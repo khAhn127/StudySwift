@@ -9,34 +9,33 @@ import Foundation
 import UIKit
 import AsyncDisplayKit
 
-class GameNode :ASDisplayNode {
-    var players : Int = 1
-    var winning : Int = 1
-    var selectPlayer :Int = 1
-    lazy var drawNode :ASDisplayNode = {
-        let node = ASDisplayNode{ return DrawView(frame:self.view.frame)
-        }
+class GameNode: ASDisplayNode {
+    var players: Int = 1
+    var winning: Int = 1
+    var selectPlayer: Int = 1
+    
+    lazy var drawNode: ASDisplayNode = {
+        let node = ASDisplayNode{ return DrawView(frame:self.view.frame) }
         node.backgroundColor = .init(hexString: "#8c79b4")
         return node
     }()
     
-    lazy var headerNode : [ASTextNode] = {
-        var node : [ASTextNode] = []
+    lazy var headerNode: [ASTextNode] = {
+        var node: [ASTextNode] = []
         for x in 1...self.players {
             let text = ASTextNode().styled {
                 $0.width = .init(unit: .fraction, value: 1/CGFloat(players))
-                $0.height = .init(unit: .fraction, value: 1 )
-            }
+                $0.height = .init(unit: .fraction, value: 1) }
             text.attributedText = .init(string: "사람\(x)")
-            text.addTarget(self, action: #selector(selectedPlayer), forControlEvents: .touchUpInside)
+            text.addTarget(self, action: #selector(selectedPlayer(_:)), forControlEvents: .touchUpInside)
             text.view.tag = x
             text.borderWidth = text.isSelected ? 1 : 0
             node.append(text)
         }
-        
         return node
     }()
-    lazy var footer : [ASTextNode] = {
+
+    lazy var footer: [ASTextNode] = {
         var node : [ASTextNode] = []
         for x in 1...self.players {
             let text = ASTextNode().styled {
@@ -57,7 +56,7 @@ class GameNode :ASDisplayNode {
         return node
     }()
     
-    lazy var resetNode :ASButtonNode = {
+    lazy var resetNode: ASButtonNode = {
         let node = ASButtonNode()
         node.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
         node.setAttributedTitle(.init(string: "reset"), for: .normal)
@@ -66,7 +65,7 @@ class GameNode :ASDisplayNode {
         node.borderColor = UIColor.lightText.cgColor
         return node
     }()
-    lazy var startNode :ASButtonNode = {
+    lazy var startNode: ASButtonNode = {
         let node = ASButtonNode()
         node.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
         node.setAttributedTitle(.init(string: "start"), for: .normal)
@@ -75,7 +74,8 @@ class GameNode :ASDisplayNode {
         node.borderColor = UIColor.lightText.cgColor
         return node
     }()
-    init(_ players :Int,_ winning :Int) {
+    
+    init(_ players:Int, _ winning: Int) {
         super.init()
         self.players = players
         self.winning = winning
@@ -88,7 +88,6 @@ class GameNode :ASDisplayNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-
         return ASInsetLayoutSpec(
             insets: .init(top: 20, left: 10, bottom: 60, right: 10),
             child: ASStackLayoutSpec(
@@ -102,10 +101,11 @@ class GameNode :ASDisplayNode {
                         spacing: 0,
                         justifyContent: .end,
                         alignItems: .stretch,
-                        children: self.headerNode).styled({
-                            $0.width = .init(unit: .fraction, value: 1)
-                            $0.height = .init(unit: .points, value: 20)
-                        }) ,
+                        children: self.headerNode
+                    ).styled({
+                        $0.width = .init(unit: .fraction, value: 1)
+                        $0.height = .init(unit: .points, value: 20)
+                    }),
                     self.drawNode.styled({
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .fraction, value: 1)
@@ -115,11 +115,12 @@ class GameNode :ASDisplayNode {
                         spacing: 0,
                         justifyContent: .end,
                         alignItems: .stretch,
-                        children: self.footer).styled({
-                            $0.width = .init(unit: .fraction, value: 1)
-                            $0.height = .init(unit: .points, value: 20)
-                        }) ,
-                    ASStackLayoutSpec (
+                        children: self.footer
+                    ).styled({
+                        $0.width = .init(unit: .fraction, value: 1)
+                        $0.height = .init(unit: .points, value: 20)
+                    }) ,
+                    ASStackLayoutSpec(
                         direction: .horizontal,
                         spacing: 10,
                         justifyContent: .spaceBetween,
@@ -127,16 +128,12 @@ class GameNode :ASDisplayNode {
                         children: [
                             self.resetNode.styled({
                                 $0.width = .init(unit: .fraction, value: 0.5)
-                                $0.height = .init(unit: .points, value: 20)
-                            }),
+                                $0.height = .init(unit: .points, value: 20)}),
                             self.startNode.styled({
                                 $0.width = .init(unit: .fraction, value: 0.5)
-                                $0.height = .init(unit: .points, value: 20)
-                            }),
-                            
+                                $0.height = .init(unit: .points, value: 20)}),
                         ]
                     ),
-                    
                 ]
             )
         )
@@ -151,37 +148,34 @@ class GameNode :ASDisplayNode {
         drawView?.layer.sublayers?.removeAll()
         drawView?.player(selectPlayer)
     }
-    @objc func selectedPlayer(sender : ASTextNode) {
+    @objc func selectedPlayer(_ sender : ASTextNode) {
         self.selectPlayer = sender.view.tag
     }
+    
 }
 
 
-class DrawView : UIView{
-    lazy var gameWidth : CGFloat = {
+class DrawView: UIView {
+    lazy var gameWidth: CGFloat = {
         let width = CGFloat()
         return width
     }()
-    lazy var gameHeight : CGFloat = {
+    lazy var gameHeight: CGFloat = {
         let height = CGFloat()
         return height
     }()
-    lazy var playersCount : CGFloat = {
+    lazy var playersCount: CGFloat = {
         let count = CGFloat(1)
         return count
     }()
+    var data: [[Int]] = [[]]
     
-    func settingGame(_ playersCount :Int) {
-        
-    }
-    
-    var data :[[Int]] = [[]]
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         gameWidth = self.bounds.width - 20
         gameHeight = self.bounds.height - 20
         data = [[Int]](repeating: [Int](repeating:0, count: Int(playersCount)+1), count: Int(playersCount)+1)
-        var vertical:CGFloat = 0
+        var vertical: CGFloat = 0
 //        playersCount = CGFloat(10)
         //comment Y축 라인 선 그리기
         for _ in 1...Int(playersCount) {
@@ -202,15 +196,15 @@ class DrawView : UIView{
             }
         }
         //comment 중복 체크
-        var count : Int = 0
-        for x in 1...Int(playersCount) - 1 {
+        var count: Int = 0
+        for x in 1...Int(playersCount)-1 {
             count = 0
 
-            for y in 1...Int(playersCount) - 1{
+            for y in 1...Int(playersCount)-1 {
                 if data[x][y] == 0 {
                     count += 1
                 }
-                if y > 0 && y < Int(playersCount) - 1 {
+                if y > 0 && y < Int(playersCount)-1 {
                     //comment 동일 라인 선 중복 시 오른쪽 삭제
                     if data[x][y] == data[x][y+1] {
                         data[x][y+1] = 0
@@ -246,10 +240,12 @@ class DrawView : UIView{
 
             }
         }
+        for rowData in data {
+            print(rowData)
+        }
     }
     
-    func player(_ playerNumber : Int) {
-        
+    func player(_ playerNumber: Int) {
         var v = 0
         var h = playerNumber
         let maxLine = 10
@@ -290,8 +286,7 @@ class DrawView : UIView{
             layer.path = basePath().cgPath
             
             return layer
-        }
-                
+        }    
         self.layer.addSublayer(baseLineLayer())
 
     }
