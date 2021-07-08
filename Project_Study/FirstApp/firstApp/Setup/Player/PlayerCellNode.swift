@@ -9,25 +9,26 @@ import Foundation
 import AsyncDisplayKit
 import UIKit
 
-class PlayerCellNode : ASCellNode {
+class PlayerCellNode: ASCellNode {
     
-    lazy var titleNode : ASTextNode = {
+    lazy var titleNode: ASTextNode = {
         let node = ASTextNode()
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         node.attributedText = NSAttributedString(
             string: "이름",
             attributes: [.font: UIFont.boldSystemFont(ofSize: 12),
-                         .foregroundColor : UIColor.black,
-                         .paragraphStyle : paragraphStyle,
-            ])
+                         .foregroundColor: UIColor.black,
+                         .paragraphStyle: paragraphStyle,
+            ]
+        )
         node.borderColor = UIColor.red.cgColor
         node.borderWidth = 0.5
         node.textContainerInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         return node
     }()
     
-    let inputNode : ASEditableTextNode = {
+    let inputNode: ASEditableTextNode = {
         let node = ASEditableTextNode()
         node.backgroundColor = UIColor.white
         node.borderColor = UIColor.blue.cgColor

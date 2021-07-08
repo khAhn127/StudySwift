@@ -7,11 +7,10 @@
 
 import Foundation
 
-struct PlayerModel : Codable
-{
-    let name :String
+struct PlayerModel: Codable {
+    let name: String
     
-    enum Codingkeys : Int,CodingKey{
+    enum Codingkeys: Int,CodingKey{
         case name
     }
 }

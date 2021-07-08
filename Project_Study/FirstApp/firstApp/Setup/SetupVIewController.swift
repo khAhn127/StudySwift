@@ -27,8 +27,10 @@ class SetupViewController: ViewController {
     }).setBackgroundColor(color: .init(hexString: "#e67ea3") )
     
     lazy var winningNode = WinningNode(toProduct: { [weak self] (count) in
-        if  let mainTab = self?.tabBarController as? MainTabBarController,
-            let vc = self?.tabBarController?.viewControllers?[1] {
+        if
+            let mainTab = self?.tabBarController as? MainTabBarController,
+            let vc = self?.tabBarController?.viewControllers?[1] as? GameViewController
+        {
             mainTab.winningCount = count
             if mainTab.tabBarController(mainTab, shouldSelect: vc) {
                 self?.tabBarController?.selectedIndex = 1
@@ -38,7 +40,7 @@ class SetupViewController: ViewController {
         self?.mode = .player
     }).setBackgroundColor(color:.init(hexString: "#8c79b4") )
     
-    lazy var titleNode : ASDisplayNode = {
+    lazy var titleNode: ASDisplayNode = {
         let node = ASDisplayNode()
         let textNode = ASTextNode()
         node.automaticallyManagesSubnodes = true
@@ -65,7 +67,7 @@ class SetupViewController: ViewController {
         return node
     }()
     
-    lazy var contentsNode : ASDisplayNode = {
+    lazy var contentsNode: ASDisplayNode = {
         let node = ASDisplayNode()
         node.automaticallyManagesSubnodes = true
         node.automaticallyRelayoutOnSafeAreaChanges = true
@@ -73,7 +75,6 @@ class SetupViewController: ViewController {
         node.borderWidth = 1
         node.borderColor = UIColor.yellow.cgColor
         node.backgroundColor = UIColor.white
-   
         node.layoutSpecBlock = { [weak self] (_,_) in
             guard let self = self else { return ASLayoutSpec() }
             var child = ASDisplayNode()
@@ -94,11 +95,8 @@ class SetupViewController: ViewController {
 
     override init(node: ASDisplayNode) {
         super.init(node: node)
-
         node.layoutSpecBlock = { [weak self] (_,_) in
-            guard let self = self else {
-                return ASLayoutSpec()
-            }
+            guard let self = self else { return ASLayoutSpec() }
             return ASInsetLayoutSpec(
                 insets: self.view.safeAreaInsets,
                 child: ASStackLayoutSpec(
@@ -119,8 +117,8 @@ class SetupViewController: ViewController {
                             $0.width = .init(unit: .fraction, value: 1)
                             $0.height = .init(unit: .fraction, value: 1)
                         }),
-                        
-                ])
+                    ]
+                )
             )
         }
     }
@@ -154,18 +152,17 @@ extension SetupViewController {
         case .right:
             // 스와이프 시, 원하는 기능 구현.
             switch self.mode {
-            case .player :
-                self.mode = .winning
+            case .player: self.mode = .winning
                 break
-            case .winning :
+            case .winning:
                 break
             }
             break
         case .left:
             switch self.mode {
-            case .player :
+            case .player:
                 break
-            case .winning :
+            case .winning:
                 self.mode = .player
                 break
             }

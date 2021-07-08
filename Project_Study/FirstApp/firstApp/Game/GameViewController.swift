@@ -14,7 +14,7 @@ class GameViewController: ViewController {
     var winningCount: Int = 1
     var isStart = false
 
-    lazy var gameNode = GameNode(self.playersCount,self.winningCount)
+    lazy var gameNode = GameNode(self.playersCount, self.winningCount)
         .styled({
             $0.width = .init(unit: .fraction, value: 1)
             $0.height = .init(unit: .fraction, value: 1)
@@ -38,9 +38,10 @@ class GameViewController: ViewController {
                     alignItems: .stretch,
                     children: [
                         self.isStart ? self.gameNode : self.emptyNode,
-                    ])
+                    ]
                 )
-            }
+            )
+        }
     }
     
     required init?(coder: NSCoder) {

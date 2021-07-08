@@ -10,9 +10,9 @@ import Foundation
 import AsyncDisplayKit
 import UIKit
 
-class WinningCellNode : ASCellNode {
+class WinningCellNode: ASCellNode {
     
-    lazy var titleNode : ASTextNode = {
+    lazy var titleNode: ASTextNode = {
         let node = ASTextNode()
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
@@ -21,7 +21,8 @@ class WinningCellNode : ASCellNode {
             attributes: [.font: UIFont.boldSystemFont(ofSize: 12),
                          .foregroundColor : UIColor.black,
                          .paragraphStyle : paragraphStyle,
-            ])
+            ]
+        )
         node.borderColor = UIColor.red.cgColor
         node.borderWidth = 0.5
         node.textContainerInset = .init(top: 0, left: 10, bottom: 0, right: 10)

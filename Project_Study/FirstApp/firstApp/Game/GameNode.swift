@@ -69,7 +69,7 @@ class GameNode: ASDisplayNode {
         let node = ASButtonNode()
         node.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
         node.setAttributedTitle(.init(string: "start"), for: .normal)
-        node .addTarget(self, action: #selector(start), forControlEvents: .touchUpInside)
+        node.addTarget(self, action: #selector(start), forControlEvents: .touchUpInside)
         node.borderWidth = 2
         node.borderColor = UIColor.lightText.cgColor
         return node
