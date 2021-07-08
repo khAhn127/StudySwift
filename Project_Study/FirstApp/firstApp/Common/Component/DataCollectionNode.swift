@@ -10,8 +10,6 @@ import UIKit
 import AsyncDisplayKit
 import DifferenceKit
 
-public typealias RawModel = Codable
-
 class DataCollectionNode<Model: Codable, Cell: ASCellNode>: ASDisplayNode, ASCollectionDataSource, ASCollectionDelegate, ASCollectionDelegateFlowLayout, ASCollectionViewLayoutInspecting {
     var model: [Model] = []
     
@@ -64,6 +62,7 @@ class DataCollectionNode<Model: Codable, Cell: ASCellNode>: ASDisplayNode, ASCol
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
+        // data source 연동 하기
         var cellNode = Cell()
         let model: Model = self.model[indexPath.item]
 
