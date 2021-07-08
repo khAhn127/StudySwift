@@ -27,13 +27,12 @@ class SetupViewController: ViewController {
     }).setBackgroundColor(color: .init(hexString: "#e67ea3") )
     
     lazy var winningNode = WinningNode(toProduct: { [weak self] (count) in
-        // TODO: check validation for model count
-        let mainTab = self?.tabBarController as? MainTabBarController
-        mainTab?.winningCount = count
-        let vc = self?.tabBarController?.viewControllers?[1]
-        // if 문 수정
-        if self?.tabBarController?.delegate?.tabBarController?( (self?.tabBarController)!, shouldSelect: vc!) == true {
-            self?.tabBarController?.selectedIndex = 1
+        if  let mainTab = self?.tabBarController as? MainTabBarController,
+            let vc = self?.tabBarController?.viewControllers?[1] {
+            mainTab.winningCount = count
+            if mainTab.tabBarController(mainTab, shouldSelect: vc) {
+                self?.tabBarController?.selectedIndex = 1
+            }
         }
     }, goBack: { [weak self] in
         self?.mode = .player
