@@ -10,8 +10,6 @@ import UIKit
 import AsyncDisplayKit
 
 class GameNode: ASDisplayNode {
-    var players: Int = 1
-    var winning: Int = 1
     var selectPlayer: Int = 1
     
     lazy var drawNode: ASDisplayNode = {
@@ -22,9 +20,9 @@ class GameNode: ASDisplayNode {
     
     lazy var headerNode: [ASTextNode] = {
         var node: [ASTextNode] = []
-        for x in 1...self.players {
+        for x in 1...GameConfigure.shared.playerCount {
             let text = ASTextNode().styled {
-                $0.width = .init(unit: .fraction, value: 1/CGFloat(players))
+                $0.width = .init(unit: .fraction, value: 1/GameConfigure.shared.playerCount.toCGFloat)
                 $0.height = .init(unit: .fraction, value: 1) }
             text.attributedText = .init(string: "사람\(x)")
             text.addTarget(self, action: #selector(selectedPlayer(_:)), forControlEvents: .touchUpInside)
@@ -37,12 +35,12 @@ class GameNode: ASDisplayNode {
 
     lazy var footer: [ASTextNode] = {
         var node : [ASTextNode] = []
-        for x in 1...self.players {
+        for x in 1...GameConfigure.shared.playerCount {
             let text = ASTextNode().styled {
-                $0.width = .init(unit: .fraction, value: 1/CGFloat(players))
+                $0.width = .init(unit: .fraction, value: 1/GameConfigure.shared.playerCount.toCGFloat)
                 $0.height = .init(unit: .fraction, value: 1 )
             }
-            if x <= self.winning {
+            if x <= GameConfigure.shared.winnerCount {
                 text.attributedText = .init(string: "당첨\(x)")
                 text.borderColor =  UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0).cgColor
                 text.borderWidth = 1
@@ -75,12 +73,10 @@ class GameNode: ASDisplayNode {
         return node
     }()
     
-    init(_ players:Int, _ winning: Int) {
+    override init() {
         super.init()
-        self.players = players
-        self.winning = winning
         let drawView =  self.drawNode.view as? DrawView
-        drawView?.playersCount = CGFloat(players)
+        drawView?.playersCount = GameConfigure.shared.playerCount
         self.automaticallyManagesSubnodes = true
         self.automaticallyRelayoutOnSafeAreaChanges = true
         self.automaticallyRelayoutOnLayoutMarginsChanges = true
@@ -161,67 +157,54 @@ extension Int {
 }
 
 class DrawView: UIView {
-    lazy var gameWidth: CGFloat = {
-        let width = CGFloat()
-        return width
-    }()
-    lazy var gameHeight: CGFloat = {
-        let height = CGFloat()
-        return height
-    }()
-    lazy var playersCount: CGFloat = {
-        let count = CGFloat(1)
-        return count
-    }()
+    lazy var gameWidth: CGFloat = (self.bounds.width - 20) / self.playersCount.toCGFloat
+    lazy var gameHeight: CGFloat = (self.bounds.height - 20) / self.playersCount.toCGFloat
+    var playersCount: Int = 1
     var data: [[Int]] = [[]]
+  
     
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        gameWidth = self.bounds.width - 20
-        gameHeight = self.bounds.height - 20
-        data = [[Int]](repeating: [Int](repeating:0, count: Int(playersCount)+1), count: Int(playersCount)+1)
-        var vertical: CGFloat = 0
-//        playersCount = CGFloat(10)
+        data = [[Int]](repeating: [Int](repeating:0, count: playersCount+1), count: playersCount+1)
         //comment Y축 라인 선 그리기
-        for _ in 1...Int(playersCount) {
-            vertical += ((gameWidth)/playersCount)
+        for x in 1...playersCount {
+            
             context.setStrokeColor(UIColor.black.cgColor)
-            context.move(to: CGPoint(x: vertical, y: 10))
-            context.addLine(to: CGPoint(x:vertical, y: (gameHeight)))
+            context.move(to: CGPoint(x: gameWidth * x.toCGFloat, y: 10))
+            context.addLine(to: CGPoint(x:gameWidth * x.toCGFloat, y: self.bounds.height - 20))
             context.strokePath()
             context.closePath()
             
-            for _ in 1...Int(playersCount) {
+            for _ in 1...playersCount-1 {
                 //comment 가로 라인 축 그리기 데이터
-                let randomX = Int.random(in: 1...Int(playersCount) - 1)
+                let randomX = Int.random(in: 1...playersCount - 1)
                 //comment 세로 라인 축
-                let randomY = Int.random(in: 1...Int(playersCount) - 1)
+                let randomY = Int.random(in: 1...playersCount - 1)
                 
                 data[randomX][randomY] = 1
             }
         }
         //comment 중복 체크
         var count: Int = 0
-        for x in 1...Int(playersCount)-1 {
+        for x in 1...playersCount-1 {
             count = 0
 
-            for y in 1...Int(playersCount)-1 {
+            for y in 1...playersCount-1 {
                 if data[x][y] == 0 {
                     count += 1
                 }
-                if y > 0 && y < Int(playersCount)-1 {
+                if y > 0 && y < playersCount-1 {
                     //comment 동일 라인 선 중복 시 오른쪽 삭제
                     if data[x][y] == data[x][y+1] {
                         data[x][y+1] = 0
                     }
                 }
                 if data[x][y] == 1 {
-                
                     context.setStrokeColor(UIColor.black.cgColor)
-                    context.move(to: CGPoint(x: (self.gameWidth/playersCount) * CGFloat(y),
-                                             y: (self.gameHeight/playersCount) * CGFloat(x)))
-                    context.addLine(to: CGPoint(x: (self.gameWidth/playersCount) * CGFloat(y+1),
-                                                y: (self.gameHeight/playersCount) * CGFloat(x)))
+                    context.move(to: CGPoint(x: gameWidth * y.toCGFloat,
+                                             y: gameHeight * x.toCGFloat))
+                    context.addLine(to: CGPoint(x: gameWidth * (y.toCGFloat+1),
+                                                y: gameHeight * x.toCGFloat))
                     context.strokePath()
                     context.closePath()
                 }
@@ -229,20 +212,19 @@ class DrawView: UIView {
             var n = count - 2
             while n < count {
 //                //comment 랜덤 가로 라인
-                let y2 = Int.random(in: 1...Int(playersCount)-1)
-                if y2 > 0 && y2 < Int(playersCount) - 1 {
+                let y2 = Int.random(in: 1...playersCount-1)
+                if y2 > 0 && y2 < playersCount - 1 {
                     if data[x][y2+1] == 1 { continue }
                     if data[x][y2-1] == 1 { continue }
-                        context.setStrokeColor(UIColor.black.cgColor)
-                        context.move(to: CGPoint(x: (self.gameWidth/playersCount) * CGFloat(y2),
-                                                 y: (self.gameHeight/playersCount) * CGFloat(x)))
-                        context.addLine(to: CGPoint(x: (self.gameWidth/playersCount)*CGFloat(y2+1),
-                                                    y:(self.gameHeight/playersCount)*CGFloat(x)))
-                        context.strokePath()
-                        data[x][y2] = 1
-                        n += 1
-                } else { n += 1 }
-
+                    context.setStrokeColor(UIColor.black.cgColor)
+                    context.move(to: CGPoint(x: gameWidth * y2.toCGFloat,
+                                             y: gameHeight * x.toCGFloat))
+                    context.addLine(to: CGPoint(x: gameWidth * (y2.toCGFloat+1),
+                                                y: gameHeight * x.toCGFloat))
+                    context.strokePath()
+                    data[x][y2] = 1
+                }
+                n += 1
             }
         }
         for rowData in data {
@@ -250,10 +232,12 @@ class DrawView: UIView {
         }
     }
     
+    
     func player(_ playerNumber: Int) {
         var v = 0
         var h = playerNumber
         let maxLine = 10
+        
         //comment add line
         let basePath = { () -> UIBezierPath in
             let path: UIBezierPath = UIBezierPath()

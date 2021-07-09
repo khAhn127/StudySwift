@@ -59,9 +59,6 @@ enum MainTab: CaseIterable {
 }
 
 class MainTabBarController: UITabBarController {
-    var playersCount = 1
-    var winningCount = 1
-    
     lazy var tabs: [UIViewController]? = {
         var viewControllers :[UIViewController] = []
         for navController in MainTab.allCases {
@@ -85,24 +82,19 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        guard (self.playersCount >= 2 || self.winningCount >= 1) else {
-            let alert = UIAlertController(title: "경고", message: "아직 생성 되지 않았습니다.\n 설정 탭으로 이동해주세요.", preferredStyle: UIAlertController.Style.alert)
-            let okAction = UIAlertAction(title: "확인", style: .default)
-            alert.addAction(okAction)
-            present(alert, animated: false, completion: nil)
-            return false
-        }
-        // 빈 화면 되기 전에 설정 변경 시키기 위해서 shouldSelect로 체크
-        if let vc = viewController as? GameViewController {
-            vc.playersCount = self.playersCount
-            vc.winningCount = self.winningCount
-            vc.isStart = true
-            vc.node.setNeedsLayout()
+        if viewController is GameViewController? {
+            guard
+                GameConfigure.shared.playerCount >= 2,
+                GameConfigure.shared.winnerCount >= 1,
+                GameConfigure.shared.playerCount != GameConfigure.shared.winnerCount
+            else {
+                let alert = UIAlertController(title: "경고", message: "아직 생성 되지 않았습니다.\n 설정 탭으로 이동해주세요.", preferredStyle: UIAlertController.Style.alert)
+                let okAction = UIAlertAction(title: "확인", style: .default)
+                alert.addAction(okAction)
+                present(alert, animated: false, completion: nil)
+                return false
+            }
         }
         return true
     }
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        
-     }
 }
