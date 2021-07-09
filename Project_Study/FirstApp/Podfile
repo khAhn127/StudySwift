@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'firstApp' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for firstApp
+
+  target 'firstAppTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'firstAppUITests' do
+    # Pods for testing
+  end
+
+  # Pods for Quintet
+  pod 'DifferenceKit', '1.1.5'
+  pod 'Rideau', '1.1.4'
+  pod 'Texture/MapKit', '3.0.0'
+  pod 'SwiftyUserDefaults'
+end

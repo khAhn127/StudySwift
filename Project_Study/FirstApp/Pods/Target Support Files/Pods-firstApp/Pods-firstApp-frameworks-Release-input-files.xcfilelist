@@ -1,0 +1,6 @@
+${PODS_ROOT}/Target Support Files/Pods-firstApp/Pods-firstApp-frameworks.sh
+${BUILT_PRODUCTS_DIR}/DifferenceKit/DifferenceKit.framework
+${BUILT_PRODUCTS_DIR}/Rideau/Rideau.framework
+${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework
+${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework
+${BUILT_PRODUCTS_DIR}/TransitionPatch/TransitionPatch.framework
