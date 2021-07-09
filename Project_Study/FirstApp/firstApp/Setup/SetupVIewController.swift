@@ -9,6 +9,16 @@ import Foundation
 import UIKit
 import AsyncDisplayKit
 
+class GameConfigure {
+    static let shared = GameConfigure()
+    
+    static let maxLine = 10
+    static let maxPlayer = 10
+    
+    var playerCount: Int = 0
+    var winnerCount: Int = 0
+}
+
 class SetupViewController: ViewController {
     enum Mode {
         case player
@@ -22,17 +32,18 @@ class SetupViewController: ViewController {
 
     lazy var playerNode = PlayerNode(onNext: { [weak self] (count) in
         self?.mode = .winning
-        let mainTab = self?.tabBarController as? MainTabBarController
-        mainTab?.playersCount = count
+        GameConfigure.shared.playerCount = count
     }).setBackgroundColor(color: .init(hexString: "#e67ea3") )
     
     lazy var winningNode = WinningNode(toProduct: { [weak self] (count) in
+        GameConfigure.shared.winnerCount = count
         if
             let mainTab = self?.tabBarController as? MainTabBarController,
             let vc = self?.tabBarController?.viewControllers?[1] as? GameViewController
         {
-            mainTab.winningCount = count
             if mainTab.tabBarController(mainTab, shouldSelect: vc) {
+                vc.isStart = true
+                vc.node.setNeedsLayout()
                 self?.tabBarController?.selectedIndex = 1
             }
         }
