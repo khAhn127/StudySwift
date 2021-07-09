@@ -15,6 +15,7 @@ class WinningNode: ASDisplayNode {
         node.textContainerInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         node.backgroundColor = UIColor.white
         node.borderWidth = 1
+        node.keyboardType = .decimalPad
         node.borderColor = UIColor.lightGray.cgColor
         return node
     }()

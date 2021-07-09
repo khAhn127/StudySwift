@@ -17,6 +17,7 @@ class PlayerNode: ASDisplayNode {
         node.backgroundColor = UIColor.white
         node.borderWidth = 1
         node.borderColor = UIColor.lightGray.cgColor
+        node.keyboardType = .decimalPad
         return node
     }()
     
