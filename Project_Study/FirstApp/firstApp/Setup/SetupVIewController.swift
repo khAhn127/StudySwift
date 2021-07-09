@@ -11,10 +11,7 @@ import AsyncDisplayKit
 
 class GameConfigure {
     static let shared = GameConfigure()
-    
     static let maxLine = 10
-    static let maxPlayer = 10
-    
     var playerCount: Int = 0
     var winnerCount: Int = 0
 }
@@ -72,8 +69,9 @@ class SetupViewController: ViewController {
                     alignItems: .stretch,
                     children: [
                         textNode,
-                    ])
+                    ]
                 )
+            )
         }
         return node
     }()
@@ -95,7 +93,6 @@ class SetupViewController: ViewController {
             case .winning:
                 child = self.winningNode
             }
-            
             return ASInsetLayoutSpec(
                 insets: .zero,
                 child: child

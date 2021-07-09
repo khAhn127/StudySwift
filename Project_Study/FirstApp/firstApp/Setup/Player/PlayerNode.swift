@@ -121,7 +121,7 @@ class PlayerNode: ASDisplayNode {
     override func didLoad() {
         let toolBarKeyboard = UIToolbar()
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: .none, action: .none)
-        let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create))
+        let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create(_:)))
         toolBarKeyboard.items = [space,btnDoneBar]
         toolBarKeyboard.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         toolBarKeyboard.backgroundColor = .init(hexString: "#8c79b4")
@@ -134,7 +134,7 @@ class PlayerNode: ASDisplayNode {
 
     }
     
-    @objc func create() {
+    @objc func create(_ sender: UIBarButtonItem) {
         let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
         model.removeAll()
         for index in 0 ..< number {

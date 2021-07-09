@@ -17,7 +17,6 @@ class GameNode: ASDisplayNode {
         node.backgroundColor = .init(hexString: "#8c79b4")
         return node
     }()
-    
     lazy var headerNode: [ASTextNode] = {
         var node: [ASTextNode] = []
         for x in 1...GameConfigure.shared.playerCount {
@@ -53,12 +52,11 @@ class GameNode: ASDisplayNode {
         node.shuffle()
         return node
     }()
-    
     lazy var resetNode: ASButtonNode = {
         let node = ASButtonNode()
         node.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
         node.setAttributedTitle(.init(string: "reset"), for: .normal)
-        node.addTarget(self, action: #selector(reset), forControlEvents: .touchUpInside)
+        node.addTarget(self, action: #selector(reset(_:)), forControlEvents: .touchUpInside)
         node.borderWidth = 2
         node.borderColor = UIColor.lightText.cgColor
         return node
@@ -67,7 +65,7 @@ class GameNode: ASDisplayNode {
         let node = ASButtonNode()
         node.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
         node.setAttributedTitle(.init(string: "start"), for: .normal)
-        node.addTarget(self, action: #selector(start), forControlEvents: .touchUpInside)
+        node.addTarget(self, action: #selector(start(_:)), forControlEvents: .touchUpInside)
         node.borderWidth = 2
         node.borderColor = UIColor.lightText.cgColor
         return node
@@ -134,20 +132,20 @@ class GameNode: ASDisplayNode {
             )
         )
     }
-    @objc func reset() {
+    
+    @objc func reset(_ sender: ASButtonNode) {
         let drawView =  self.drawNode.view as? DrawView
         drawView?.layer.sublayers?.removeAll()
         self.drawNode.view.setNeedsDisplay()
     }
-    @objc func start() {
+    @objc func start(_ sender: ASButtonNode) {
         let drawView =  self.drawNode.view as? DrawView
         drawView?.layer.sublayers?.removeAll()
         drawView?.player(selectPlayer)
     }
-    @objc func selectedPlayer(_ sender : ASTextNode) {
+    @objc func selectedPlayer(_ sender: ASTextNode) {
         self.selectPlayer = sender.view.tag
     }
-    
 }
 
 extension Int {
@@ -161,14 +159,12 @@ class DrawView: UIView {
     lazy var gameHeight: CGFloat = (self.bounds.height - 20) / self.playersCount.toCGFloat
     var playersCount: Int = 1
     var data: [[Int]] = [[]]
-  
     
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         data = [[Int]](repeating: [Int](repeating:0, count: playersCount+1), count: playersCount+1)
         //comment Y축 라인 선 그리기
         for x in 1...playersCount {
-            
             context.setStrokeColor(UIColor.black.cgColor)
             context.move(to: CGPoint(x: gameWidth * x.toCGFloat, y: 10))
             context.addLine(to: CGPoint(x:gameWidth * x.toCGFloat, y: self.bounds.height - 20))
@@ -180,7 +176,6 @@ class DrawView: UIView {
                 let randomX = Int.random(in: 1...playersCount - 1)
                 //comment 세로 라인 축
                 let randomY = Int.random(in: 1...playersCount - 1)
-                
                 data[randomX][randomY] = 1
             }
         }
@@ -188,7 +183,7 @@ class DrawView: UIView {
         var count: Int = 0
         for x in 1...playersCount-1 {
             count = 0
-
+            
             for y in 1...playersCount-1 {
                 if data[x][y] == 0 {
                     count += 1
@@ -201,10 +196,8 @@ class DrawView: UIView {
                 }
                 if data[x][y] == 1 {
                     context.setStrokeColor(UIColor.black.cgColor)
-                    context.move(to: CGPoint(x: gameWidth * y.toCGFloat,
-                                             y: gameHeight * x.toCGFloat))
-                    context.addLine(to: CGPoint(x: gameWidth * (y.toCGFloat+1),
-                                                y: gameHeight * x.toCGFloat))
+                    context.move(to: CGPoint(x: gameWidth * y.toCGFloat, y: gameHeight * x.toCGFloat))
+                    context.addLine(to: CGPoint(x: gameWidth * (y.toCGFloat+1), y: gameHeight * x.toCGFloat))
                     context.strokePath()
                     context.closePath()
                 }
@@ -217,10 +210,8 @@ class DrawView: UIView {
                     if data[x][y2+1] == 1 { continue }
                     if data[x][y2-1] == 1 { continue }
                     context.setStrokeColor(UIColor.black.cgColor)
-                    context.move(to: CGPoint(x: gameWidth * y2.toCGFloat,
-                                             y: gameHeight * x.toCGFloat))
-                    context.addLine(to: CGPoint(x: gameWidth * (y2.toCGFloat+1),
-                                                y: gameHeight * x.toCGFloat))
+                    context.move(to: CGPoint(x: gameWidth * y2.toCGFloat, y: gameHeight * x.toCGFloat))
+                    context.addLine(to: CGPoint(x: gameWidth * (y2.toCGFloat+1), y: gameHeight * x.toCGFloat))
                     context.strokePath()
                     data[x][y2] = 1
                 }
@@ -232,17 +223,14 @@ class DrawView: UIView {
         }
     }
     
-    
     func player(_ playerNumber: Int) {
         var v = 0
         var h = playerNumber
-        let maxLine = 10
-        
         //comment add line
         let basePath = { () -> UIBezierPath in
             let path: UIBezierPath = UIBezierPath()
             //comment 스타트 시점
-            while v < maxLine {
+            while v < GameConfigure.maxLine {
                 //comment  h-1 == 1 일때 left 그리기, h+1 == 1 일때 right , false = h
                 path.move(to: CGPoint(x: self.gameWidth * h.toCGFloat, y: self.gameHeight * v.toCGFloat))
                 path.addLine(to: CGPoint(x: self.gameWidth * CGFloat(self.data[v][h-1] == 1 ? (h-1) : ( self.data[v][h] == 1 ? (h+1) : h)) ,
@@ -265,8 +253,6 @@ class DrawView: UIView {
             return layer
         }    
         self.layer.addSublayer(baseLineLayer())
-
     }
-    
 }
 

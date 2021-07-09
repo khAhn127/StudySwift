@@ -148,7 +148,7 @@ class WinningNode: ASDisplayNode {
     override func didLoad() {
         let toolBarKeyboard = UIToolbar()
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: .none, action: .none)
-        let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create))
+        let btnDoneBar = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(self.create(_:)))
         toolBarKeyboard.items = [space,btnDoneBar]
         toolBarKeyboard.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         toolBarKeyboard.backgroundColor = .init(hexString: "#8c79b4")
@@ -161,14 +161,14 @@ class WinningNode: ASDisplayNode {
 
     }
     
-    @objc func create() {
+    @objc func create(_ sender: UIBarButtonItem) {
         let number = (inputNode.attributedText?.string.intValue ?? 0 ) as Int
         if number > 4 {
             let alert = UIAlertController(title: "초과", message: "Max 4 초과 입니다.", preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "확인", style: .default)
             alert.addAction(okAction)
             self.closestViewController?.present(alert, animated: false, completion: nil)
-            return;
+            return
         }
         
         model.removeAll()
