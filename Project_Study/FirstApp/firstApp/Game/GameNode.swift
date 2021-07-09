@@ -154,6 +154,11 @@ class GameNode: ASDisplayNode {
     
 }
 
+extension Int {
+    var toCGFloat: CGFloat {
+        return CGFloat(self)
+    }
+}
 
 class DrawView: UIView {
     lazy var gameWidth: CGFloat = {
