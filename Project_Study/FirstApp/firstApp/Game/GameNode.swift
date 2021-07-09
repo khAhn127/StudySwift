@@ -254,27 +254,15 @@ class DrawView: UIView {
             let path: UIBezierPath = UIBezierPath()
             //comment 스타트 시점
             while v < maxLine {
-                //comment vetical line down
-                if self.data[v][h] == 0 {
-                    //comment left 라인 체크
-                    if (self.data[v][h-1] == 1) {
-                        path.move(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h) , y: (self.gameHeight/self.playersCount) * CGFloat(v)))
-                        path.addLine(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h-1) , y: (self.gameHeight/self.playersCount) * CGFloat(v)))
-                        h -= 1
-                    }
-                    path.move(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h) , y: (self.gameHeight/self.playersCount) * CGFloat(v)))
-                    path.addLine(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h) , y: (self.gameHeight/self.playersCount) * CGFloat(v+1)))
-                    v += 1
-                } else if self.data[v][h] == 1 {    //comment right 라인 체크 후 y축 다운
-                    path.move(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h) , y: (self.gameHeight/self.playersCount) * CGFloat(v)))
-                    path.addLine(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h+1) , y: (self.gameHeight/self.playersCount) * CGFloat(v)))
-                    h += 1
-                    
-                    path.move(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h) , y: (self.gameHeight/self.playersCount) * CGFloat(v)))
-                    path.addLine(to: CGPoint(x: (self.gameWidth/self.playersCount) * CGFloat(h) , y: (self.gameHeight/self.playersCount) * CGFloat(v+1)))
-                    v += 1
-                }
-               
+                //comment  h-1 == 1 일때 left 그리기, h+1 == 1 일때 right , false = h
+                path.move(to: CGPoint(x: self.gameWidth * h.toCGFloat, y: self.gameHeight * v.toCGFloat))
+                path.addLine(to: CGPoint(x: self.gameWidth * CGFloat(self.data[v][h-1] == 1 ? (h-1) : ( self.data[v][h] == 1 ? (h+1) : h)) ,
+                                         y: self.gameHeight * v.toCGFloat))
+                h = self.data[v][h-1] == 1 ? (h-1) : ( self.data[v][h] == 1 ? (h+1) : h)
+                //comment y축 방향으로 그리기
+                path.move(to: CGPoint(x: self.gameWidth * h.toCGFloat, y: self.gameHeight * v.toCGFloat))
+                path.addLine(to: CGPoint(x: self.gameWidth * h.toCGFloat, y: self.gameHeight * (v.toCGFloat+1)))
+                v += 1
             }
             return path
         }
