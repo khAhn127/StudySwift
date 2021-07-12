@@ -9,40 +9,46 @@ import Foundation
 import UIKit
 import AsyncDisplayKit
 
-class SetupViewController : ViewController {
+class GameConfigure {
+    static let shared = GameConfigure()
+    static let maxLine = 10
+    var playerCount: Int = 0
+    var winnerCount: Int = 0
+}
+
+class SetupViewController: ViewController {
     enum Mode {
         case player
         case winning
     }
     var mode = Mode.player {
         didSet {
-            switch mode {
-            case .player :
-                fallthrough
-            case .winning :
-                self.contentsNode.setNeedsLayout()
-            }
+            self.contentsNode.setNeedsLayout()
         }
     }
 
     lazy var playerNode = PlayerNode(onNext: { [weak self] (count) in
         self?.mode = .winning
-        let mainTab = self?.tabBarController as? MainTabBarController
-        mainTab?.playersCount = count
-    }).setBackgroundColor(color:.init(hexString: "#e67ea3") )
+        GameConfigure.shared.playerCount = count
+    }).setBackgroundColor(color: .init(hexString: "#e67ea3") )
+    
     lazy var winningNode = WinningNode(toProduct: { [weak self] (count) in
-        // TODO: check validation for model count
-        let mainTab = self?.tabBarController as? MainTabBarController
-        mainTab?.winningCount = count
-        let vc = self?.tabBarController?.viewControllers?[1]
-        if self?.tabBarController?.delegate?.tabBarController?( (self?.tabBarController)!, shouldSelect: vc!) == true {
-            self?.tabBarController?.selectedIndex = 1
+        GameConfigure.shared.winnerCount = count
+        if
+            let mainTab = self?.tabBarController as? MainTabBarController,
+            let vc = self?.tabBarController?.viewControllers?[1] as? GameViewController
+        {
+            if mainTab.tabBarController(mainTab, shouldSelect: vc) {
+                vc.isStart = true
+                vc.node.setNeedsLayout()
+                self?.tabBarController?.selectedIndex = 1
+            }
         }
     }, goBack: { [weak self] in
         self?.mode = .player
     }).setBackgroundColor(color:.init(hexString: "#8c79b4") )
     
-    lazy var titleNode : ASDisplayNode = {
+    lazy var titleNode: ASDisplayNode = {
         let node = ASDisplayNode()
         let textNode = ASTextNode()
         node.automaticallyManagesSubnodes = true
@@ -63,13 +69,14 @@ class SetupViewController : ViewController {
                     alignItems: .stretch,
                     children: [
                         textNode,
-                    ])
+                    ]
                 )
+            )
         }
         return node
     }()
     
-    lazy var contentsNode : ASDisplayNode = {
+    lazy var contentsNode: ASDisplayNode = {
         let node = ASDisplayNode()
         node.automaticallyManagesSubnodes = true
         node.automaticallyRelayoutOnSafeAreaChanges = true
@@ -77,7 +84,6 @@ class SetupViewController : ViewController {
         node.borderWidth = 1
         node.borderColor = UIColor.yellow.cgColor
         node.backgroundColor = UIColor.white
-   
         node.layoutSpecBlock = { [weak self] (_,_) in
             guard let self = self else { return ASLayoutSpec() }
             var child = ASDisplayNode()
@@ -87,7 +93,6 @@ class SetupViewController : ViewController {
             case .winning:
                 child = self.winningNode
             }
-            
             return ASInsetLayoutSpec(
                 insets: .zero,
                 child: child
@@ -98,11 +103,8 @@ class SetupViewController : ViewController {
 
     override init(node: ASDisplayNode) {
         super.init(node: node)
-
         node.layoutSpecBlock = { [weak self] (_,_) in
-            guard let self = self else {
-                return ASLayoutSpec()
-            }
+            guard let self = self else { return ASLayoutSpec() }
             return ASInsetLayoutSpec(
                 insets: self.view.safeAreaInsets,
                 child: ASStackLayoutSpec(
@@ -123,8 +125,8 @@ class SetupViewController : ViewController {
                             $0.width = .init(unit: .fraction, value: 1)
                             $0.height = .init(unit: .fraction, value: 1)
                         }),
-                        
-                ])
+                    ]
+                )
             )
         }
     }
@@ -142,33 +144,33 @@ class SetupViewController : ViewController {
 extension SetupViewController {
     func swipeRecognizer() {
         // Initialize Swipe Gesture Recognizer
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
         // Configure Swipe Gesture Recognizer
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
         
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         self.view.addGestureRecognizer(swipeLeft)
     }
         
-    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
-        switch (gesture as? UISwipeGestureRecognizer)?.direction{
-        case UISwipeGestureRecognizer.Direction.right:
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
+        guard let recognizer = gesture as? UISwipeGestureRecognizer else { return }
+        switch recognizer.direction {
+        case .right:
             // 스와이프 시, 원하는 기능 구현.
             switch self.mode {
-            case .player :
-                self.mode = .winning
+            case .player: self.mode = .winning
                 break
-            case .winning :
+            case .winning:
                 break
             }
             break
-        case UISwipeGestureRecognizer.Direction.left:
+        case .left:
             switch self.mode {
-            case .player :
+            case .player:
                 break
-            case .winning :
+            case .winning:
                 self.mode = .player
                 break
             }

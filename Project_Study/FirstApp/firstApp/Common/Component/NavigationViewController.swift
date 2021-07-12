@@ -12,7 +12,7 @@ class NavigationViewController: UINavigationController {
     
 }
 extension NavigationViewController {
-    func transitionRootViewController(to target: UIViewController, transitionType: CATransitionType, transitionSubtype: CATransitionSubtype, completion: @escaping ()->() = {}) {
+    class func transitionRootViewController(to target: UIViewController, transitionType: CATransitionType, transitionSubtype: CATransitionSubtype, completion: @escaping ()->() = {}) {
         // TODO: 메인 변경 처리 생각해보기
         guard
             let keyWindow = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate ?? nil,
