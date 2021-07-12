@@ -74,7 +74,6 @@ class GameNode: ASDisplayNode {
     override init() {
         super.init()
         let drawView =  self.drawNode.view as? DrawView
-        drawView?.playersCount = GameConfigure.shared.playerCount
         self.automaticallyManagesSubnodes = true
         self.automaticallyRelayoutOnSafeAreaChanges = true
         self.automaticallyRelayoutOnLayoutMarginsChanges = true
@@ -155,13 +154,14 @@ extension Int {
 }
 
 class DrawView: UIView {
-    lazy var gameWidth: CGFloat = (self.bounds.width - 20) / self.playersCount.toCGFloat
-    lazy var gameHeight: CGFloat = (self.bounds.height - 20) / self.playersCount.toCGFloat
-    var playersCount: Int = 1
+    lazy var gameWidth: CGFloat = (self.bounds.width - 20) / GameConfigure.shared.playerCount.toCGFloat
+    lazy var gameHeight: CGFloat = (self.bounds.height - 20) / GameConfigure.shared.playerCount.toCGFloat
+    
     var data: [[Int]] = [[]]
     
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
+        let playersCount: Int = GameConfigure.shared.playerCount
         data = [[Int]](repeating: [Int](repeating:0, count: playersCount+1), count: playersCount+1)
         //comment Y축 라인 선 그리기
         for x in 1...playersCount {
