@@ -78,4 +78,7 @@ class WinningCellNode: ASCellNode {
         )
     }
     
+    func update() {
+        inputNode.attributedText = .init(string: model.name ?? "")
+    }
 }

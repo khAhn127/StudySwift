@@ -175,7 +175,7 @@ class WinningNode: ASDisplayNode {
         
         model.removeAll()
         for index in 0 ..< number {
-            model.append(WinningModel(name: "사람\(index + 1)"))
+            model.append(WinningModel(name: "당첨\(index + 1)"))
         }
         dataListNode.model = model
         dataListNode.collectionNode.reloadData()

@@ -144,6 +144,7 @@ class PlayerNode: ASDisplayNode {
         dataListNode.model = model
         dataListNode.collectionNode.reloadData()
         self.view.endEditing(true)
+        
     }
 
 }

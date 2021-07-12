@@ -8,7 +8,7 @@
 import Foundation
 
 struct WinningModel: Codable {
-    let name :String
+    var name :String?
     
     enum Codingkeys: Int,CodingKey{
         case name

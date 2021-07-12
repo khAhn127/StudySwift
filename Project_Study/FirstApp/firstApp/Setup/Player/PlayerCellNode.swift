@@ -77,5 +77,8 @@ class PlayerCellNode: ASCellNode {
             )
         )
     }
+    func update() {
+        inputNode.attributedText = .init(string: model.name ?? "")
+    }
     
 }

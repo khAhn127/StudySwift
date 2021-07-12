@@ -62,20 +62,12 @@ class DataCollectionNode<Model: Codable, Cell: ASCellNode>: ASDisplayNode, ASCol
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
-        // data source 연동 하기
-        var cellNode = Cell()
-        let model: Model = self.model[indexPath.item]
-
-        switch cellNode {
-        case is PlayerCellNode:
-            (cellNode as! PlayerCellNode).inputNode.attributedText = .init(string: (model as! PlayerModel).name )
-        case is WinningCellNode:
-            (cellNode as! WinningCellNode).inputNode.attributedText = .init(string: (model as! WinningModel).name )
-        default:
-            cellNode = ASCellNode() as! Cell
-        }
-        
-        return cellNode
+        return Cell()
+//        nodeModelForItemAtIndexPath
+    }
+    
+    func collectionNode(_ collectionNode: ASCollectionNode, nodeModelForItemAt indexPath: IndexPath) -> Any? {
+        return self.model[indexPath.item]
     }
 }
 

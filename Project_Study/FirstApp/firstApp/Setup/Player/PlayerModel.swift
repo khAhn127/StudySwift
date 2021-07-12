@@ -8,7 +8,7 @@
 import Foundation
 
 struct PlayerModel: Codable {
-    let name: String
+    var name: String?
     
     enum Codingkeys: Int,CodingKey{
         case name
