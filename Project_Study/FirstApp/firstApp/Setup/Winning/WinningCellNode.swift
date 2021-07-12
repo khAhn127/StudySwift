@@ -11,8 +11,18 @@ import AsyncDisplayKit
 import UIKit
 
 class WinningCellNode: ASCellNode {
-    
-    lazy var titleNode: ASTextNode = {
+    var model: WinningModel = WinningModel() {
+        didSet {
+            update()
+        }
+    }
+    override var nodeModel: Any? {
+        didSet {
+            guard let model = nodeModel as? WinningModel else { return }
+            self.model = model
+        }
+    }
+    var titleNode: ASTextNode = {
         let node = ASTextNode()
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center

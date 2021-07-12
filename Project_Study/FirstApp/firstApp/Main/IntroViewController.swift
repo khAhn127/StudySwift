@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 class IntroViewController: ViewController {
 
-    lazy var titleNode: ASTextNode = {
+    var titleNode: ASTextNode = {
         let node = ASTextNode()
         node.attributedText = .init(string: "사디타기 게임")
         node.textContainerInset = .init(top: 10, left: 40, bottom: 10, right: 40)

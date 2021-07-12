@@ -11,7 +11,7 @@ import UIKit
 
 class PlayerNode: ASDisplayNode {
     
-    lazy var inputNode: ASEditableTextNode = {
+    var inputNode: ASEditableTextNode = {
         let node = ASEditableTextNode()
         node.textContainerInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         node.backgroundColor = UIColor.white
@@ -54,7 +54,7 @@ class PlayerNode: ASDisplayNode {
     
     var model: [PlayerModel] = []
     
-    lazy var dataListNode: DataCollectionNode<PlayerModel,PlayerCellNode> = {
+    var dataListNode: DataCollectionNode<PlayerModel,PlayerCellNode> = {
         let node = DataCollectionNode<PlayerModel,PlayerCellNode>()
         node.backgroundColor = UIColor.clear
         return node

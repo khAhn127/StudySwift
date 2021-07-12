@@ -59,7 +59,7 @@ enum MainTab: CaseIterable {
 }
 
 class MainTabBarController: UITabBarController {
-    lazy var tabs: [UIViewController]? = {
+    var tabs: [UIViewController]? = {
         var viewControllers :[UIViewController] = []
         for navController in MainTab.allCases {
             viewControllers.append(navController.configured)

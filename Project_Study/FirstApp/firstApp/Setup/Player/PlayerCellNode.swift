@@ -10,8 +10,19 @@ import AsyncDisplayKit
 import UIKit
 
 class PlayerCellNode: ASCellNode {
+    var model: PlayerModel = PlayerModel() {
+        didSet {
+            update()
+        }
+    }
+    override var nodeModel: Any? {
+        didSet {
+            guard let model = nodeModel as? PlayerModel else { return }
+            self.model = model
+        }
+    }
     
-    lazy var titleNode: ASTextNode = {
+    var titleNode: ASTextNode = {
         let node = ASTextNode()
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center

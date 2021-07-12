@@ -10,7 +10,8 @@ import AsyncDisplayKit
 import UIKit
 
 class WinningNode: ASDisplayNode {
-    lazy var inputNode: ASEditableTextNode = {
+    
+    var inputNode: ASEditableTextNode = {
         let node = ASEditableTextNode()
         node.textContainerInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         node.backgroundColor = UIColor.white
@@ -44,7 +45,7 @@ class WinningNode: ASDisplayNode {
     
     var model: [WinningModel] = []
     
-    lazy var dataListNode: DataCollectionNode<WinningModel,WinningCellNode> = {
+    var dataListNode: DataCollectionNode<WinningModel,WinningCellNode> = {
         let node = DataCollectionNode<WinningModel,WinningCellNode>()
         node.backgroundColor = UIColor.clear
         return node
