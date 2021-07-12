@@ -28,9 +28,15 @@
 1.  AppDelegate
 2. SeceneDelegate
 3. IntroViewController
-4. SetupVIewController
-5. MainViewController
-6. Event handling
-7. Restart-> IntroViewController
+4. MainViewController
+5. Event handling
     
-    
+
+## APP Life Cycle
+1. Splash
+2. Instro
+3. MainTab
+4. SetUpfeedback
+5. Game
+
+

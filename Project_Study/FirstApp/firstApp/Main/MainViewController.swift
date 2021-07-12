@@ -8,20 +8,19 @@
 import UIKit
 import Foundation
 
-enum MainTab : Int, CaseIterable{
+enum MainTab: CaseIterable {
     case setup
     case game
     
-    var title :String{
+    var title: String {
         switch self {
-        case .setup :
+        case .setup:
             return "설정"
-        case .game :
+        case .game:
             return "게임"
         }
     }
-    
-    var images : (normal: UIImage,selected: UIImage){
+    var images: (normal: UIImage, selected: UIImage) {
         switch self {
         case .setup:
             return (UIImage(),UIImage())
@@ -29,9 +28,7 @@ enum MainTab : Int, CaseIterable{
             return (UIImage(),UIImage())
         }
     }
-    
-    var viewController : UIViewController
-    {
+    var viewController: UIViewController {
         switch self {
         case .setup:
             return SetupViewController()
@@ -39,8 +36,7 @@ enum MainTab : Int, CaseIterable{
             return GameViewController()
         }
     }
-    var tabBarItem : UITabBarItem
-    {
+    var tabBarItem : UITabBarItem {
         let tabBarItem = UITabBarItem()
         tabBarItem.title = self.title
         tabBarItem.image = self.images.normal
@@ -60,14 +56,10 @@ enum MainTab : Int, CaseIterable{
         return viewController
     }
     
-    
 }
 
-class MainTabBarController : UITabBarController
-{
-    var playersCount = 1
-    var winningCount = 1
-    lazy var tabs: [UIViewController]? = {
+class MainTabBarController: UITabBarController {
+    var tabs: [UIViewController]? = {
         var viewControllers :[UIViewController] = []
         for navController in MainTab.allCases {
             viewControllers.append(navController.configured)
@@ -76,40 +68,28 @@ class MainTabBarController : UITabBarController
     }()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         print("MainViewLoad")
-        
+        setViewControllers(tabs, animated: true)
         self.delegate = self
     }
+    //comment 여러번 초기화 되는 함수
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setViewControllers(tabs, animated: true)
     }
 
 }
 
-extension MainTabBarController : UITabBarControllerDelegate
-{
+extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if let vc = viewController as? GameViewController {
-            guard (self.playersCount >= 2 || self.winningCount >= 1) else {
+        if viewController is GameViewController? {
+            guard
+                GameConfigure.shared.playerCount >= 2,
+                GameConfigure.shared.winnerCount >= 1,
+                GameConfigure.shared.playerCount != GameConfigure.shared.winnerCount
+            else {
                 let alert = UIAlertController(title: "경고", message: "아직 생성 되지 않았습니다.\n 설정 탭으로 이동해주세요.", preferredStyle: UIAlertController.Style.alert)
-                let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
-                    
-                }
-                alert.addAction(okAction)
-                present(alert, animated: false, completion: nil)
-                return false
-            }
-            vc.playersCount = self.playersCount
-            vc.winningCount = self.winningCount
-            vc.isStart = true
-            vc.node.setNeedsLayout()
-        } else {
-            guard (self.playersCount >= 2 || self.winningCount >= 1) else {
-                let alert = UIAlertController(title: "경고", message: "아직 생성 되지 않았습니다.\n 설정 탭으로 이동해주세요.", preferredStyle: UIAlertController.Style.alert)
-                let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
-                    
-                }
+                let okAction = UIAlertAction(title: "확인", style: .default)
                 alert.addAction(okAction)
                 present(alert, animated: false, completion: nil)
                 return false
@@ -117,12 +97,4 @@ extension MainTabBarController : UITabBarControllerDelegate
         }
         return true
     }
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        
-//        print("Selected \(viewController.title!)")
-//        print("Selected is RootViewController :\(String(describing: (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).window?.rootViewController))")
-    
-        
-     }
 }
