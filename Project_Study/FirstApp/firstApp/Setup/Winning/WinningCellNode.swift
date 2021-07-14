@@ -35,7 +35,7 @@ class WinningCellNode: ASCellNode {
         )
         node.borderColor = UIColor.red.cgColor
         node.borderWidth = 0.5
-        node.textContainerInset = .init(top: 0, left: 10, bottom: 0, right: 10)
+        //node.textContainerInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         return node
     }()
     
@@ -44,7 +44,7 @@ class WinningCellNode: ASCellNode {
         node.backgroundColor = UIColor.white
         node.borderColor = UIColor.blue.cgColor
         node.borderWidth = 0.5
-        node.textContainerInset = .init(top: 0, left: 10, bottom: 0, right: 10)
+        //node.textContainerInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         return node
     }()
     
@@ -54,6 +54,7 @@ class WinningCellNode: ASCellNode {
         self.automaticallyRelayoutOnLayoutMarginsChanges = true
         self.automaticallyRelayoutOnSafeAreaChanges = true
         self.style.width = .init(unit: .fraction, value: 1)
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -67,11 +68,9 @@ class WinningCellNode: ASCellNode {
                 children: [
                     titleNode.styled({
                         $0.width = .init(unit: .fraction, value: 0.5)
-                        $0.height = .init(unit: .fraction, value: 1)
                     }),
                     inputNode.styled({
                         $0.width = .init(unit: .fraction, value: 0.5)
-                        $0.height = .init(unit: .fraction, value: 1)
                     }),
                 ]
             )
