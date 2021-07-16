@@ -29,7 +29,10 @@ class GameViewController: ViewController {
         super.init(node: node)
         node.layoutSpecBlock = { [weak self] (_,_) in
             guard let self = self else { return ASLayoutSpec() }
-          
+            let child = self.isStart ? GameNode().styled {
+                $0.width = .init(unit: .fraction, value: 1)
+                $0.height = .init(unit: .fraction, value: 1)
+            } : self.emptyNode
             return ASInsetLayoutSpec(
                 insets: self.view.safeAreaInsets,
                 child: ASStackLayoutSpec(
@@ -38,11 +41,7 @@ class GameViewController: ViewController {
                     justifyContent: .center,
                     alignItems: .stretch,
                     children: [
-                        self.isStart ? GameNode().styled({
-                            $0.width = .init(unit: .fraction, value: 1)
-                            $0.height = .init(unit: .fraction, value: 1)
-                        })
-                        : self.emptyNode,
+                        child,
                     ]
                 )
             )
