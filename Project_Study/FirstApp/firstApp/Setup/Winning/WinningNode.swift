@@ -110,22 +110,22 @@ class WinningNode: ASDisplayNode {
                 justifyContent: .center,
                 alignItems: .stretch,
                 children: [
-                    headerNode.styled({
+                    headerNode.styled {
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .points, value: 20)
-                    }),
+                    },
                     ASDisplayNode().styled({
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .points, value: 8)
                     }).setBackgroundColor(color: UIColor.black),
-                    self.dataListNode.styled({
+                    self.dataListNode.styled {
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .fraction, value: 1)
-                    }),
-                    footerNode.styled({
+                    },
+                    footerNode.styled {
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .points, value: 20)
-                    }),
+                    },
                     ASDisplayNode().styled({
                         $0.width = .init(unit: .fraction, value: 1)
                         $0.height = .init(unit: .points, value: 20)
