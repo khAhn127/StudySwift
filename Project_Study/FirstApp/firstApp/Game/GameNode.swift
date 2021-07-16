@@ -32,7 +32,7 @@ class GameNode: ASDisplayNode {
         return node
     }()
 
-    lazy var footer: [ASTextNode] = {
+    var footer: [ASTextNode] {
         var node : [ASTextNode] = []
         for x in 1...GameConfigure.shared.playerCount {
             let text = ASTextNode().styled {
@@ -51,7 +51,7 @@ class GameNode: ASDisplayNode {
         }
         node.shuffle()
         return node
-    }()
+    }
     lazy var resetNode: ASButtonNode = {
         let node = ASButtonNode()
         node.contentEdgeInsets = .init(top: 0, left: 30, bottom: 0, right: 30)
@@ -73,7 +73,7 @@ class GameNode: ASDisplayNode {
     
     override init() {
         super.init()
-        let drawView =  self.drawNode.view as? DrawView
+        _ =  self.drawNode.view as? DrawView
         self.automaticallyManagesSubnodes = true
         self.automaticallyRelayoutOnSafeAreaChanges = true
         self.automaticallyRelayoutOnLayoutMarginsChanges = true
@@ -227,12 +227,13 @@ class DrawView: UIView {
         var v = 0
         var h = playerNumber
         //comment add line
+        let gameWidth = self.gameWidth
         let basePath = { () -> UIBezierPath in
             let path: UIBezierPath = UIBezierPath()
             //comment 스타트 시점
             while v < GameConfigure.maxLine {
                 //comment  h-1 == 1 일때 left 그리기, h+1 == 1 일때 right , false = h
-                path.move(to: CGPoint(x: self.gameWidth * h.toCGFloat, y: self.gameHeight * v.toCGFloat))
+                path.move(to: CGPoint(x: gameWidth * h.toCGFloat, y: self.gameHeight * v.toCGFloat))
                 path.addLine(to: CGPoint(x: self.gameWidth * CGFloat(self.data[v][h-1] == 1 ? (h-1) : ( self.data[v][h] == 1 ? (h+1) : h)) ,
                                          y: self.gameHeight * v.toCGFloat))
                 h = self.data[v][h-1] == 1 ? (h-1) : ( self.data[v][h] == 1 ? (h+1) : h)

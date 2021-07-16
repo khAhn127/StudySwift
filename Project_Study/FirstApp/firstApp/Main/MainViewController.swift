@@ -60,7 +60,7 @@ enum MainTab: CaseIterable {
 
 class MainTabBarController: UITabBarController {
     var tabs: [UIViewController]? = {
-        var viewControllers :[UIViewController] = []
+        var viewControllers: [UIViewController] = []
         for navController in MainTab.allCases {
             viewControllers.append(navController.configured)
         }
